@@ -5,42 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
     <style>
-        /* ДИЗАЙНЕРСКИЕ ПЕРЕМЕННЫЕ */
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc85ff;
-            --space-dark: #030406;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-        }
-
-        /* ГЛУБОКИЙ КОСМОС С ТУМАННОСТЯМИ */
+        /* БАЗОВЫЕ НАСТРОЙКИ: Глубокий космос */
         body { 
             margin: 0; padding: 0; 
-            background: radial-gradient(circle at center, #0b111e 0%, var(--space-dark) 100%);
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             background-attachment: fixed;
-            color: white; 
-            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            color: #f8fafc; 
+            font-family: 'Inter', -apple-system, system-ui, sans-serif; 
             display: flex; align-items: center; justify-content: center; 
             min-height: 100vh; overflow-x: hidden;
-            position: relative;
         }
 
-        /* НЕОНОВЫЕ СВЕЧЕНИЯ НА ФОНЕ */
-        body::before, body::after {
-            content: '';
-            position: absolute;
-            width: 400px; height: 400px;
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
-        }
-        body::before { top: 10%; left: 15%; background: var(--neon-blue); }
-        body::after { bottom: 10%; right: 15%; background: var(--neon-purple); }
-
-        /* Контейнер */
         .main-screen { 
             display: flex; 
             flex-direction: row; 
@@ -49,57 +24,48 @@
             gap: 50px; 
             max-width: 1200px; 
             width: 95%;
-            padding: 40px;
-            z-index: 1; /* Поднимаем над туманностями */
+            padding: 30px;
         }
 
         /* ЛЕВАЯ СТОРОНА: МАРИНА */
-        .video-side { flex: 1.2; display: flex; flex-direction: column; align-items: center; }
+        .video-side { flex: 1; display: flex; flex-direction: column; align-items: center; }
 
         h1 { 
-            font-size: 2.8rem; 
-            margin-bottom: 25px; 
-            text-align: center;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            font-size: 2.8rem; font-weight: 700; margin-bottom: 25px; text-align: center;
+            letter-spacing: -0.02em;
         }
 
         .gradient-text {
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); 
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 12px rgba(56, 189, 248, 0.3));
         }
 
-        /* КРУГЛОЕ ОКНО В СТИЛЕ СТЕКЛЯННОЙ ЛИНЗЫ */
+        /* ТО САМОЕ КРУГЛОЕ ОКНО (Твои настройки + мягкий неон) */
         .video-sphere { 
             width: 420px; 
             height: 420px; 
             position: relative; 
             border-radius: 50%; 
             overflow: hidden; 
-            border: 1px solid rgba(0, 243, 255, 0.3); /* Тонкая неоновая рамка */
-            /* Наружный неон + Внутренний светящийся контур стекла */
+            background-color: #ffffff; /* Белый фон, как ты просила */
+            border: 2px solid rgba(255, 255, 255, 0.1); 
+            /* Многослойное свечение: мягкий синий и фиолетовый */
             box-shadow: 
-                0 0 30px rgba(0, 243, 255, 0.15),
-                inset 0 0 25px rgba(255, 255, 255, 0.1); 
-            background-color: #ffffff; 
-            backdrop-filter: blur(25px);
+                0 0 30px rgba(56, 189, 248, 0.2), 
+                0 0 60px rgba(129, 140, 248, 0.15); 
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
-        /* Эффект при наведении на аватар */
+
         .video-sphere:hover { 
-            transform: scale(1.03); 
-            border-color: rgba(0, 243, 255, 0.6);
-            box-shadow: 0 0 45px rgba(0, 243, 255, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.4);
         }
 
         .video-sphere video { 
-            position: absolute; 
-            top: 50%; 
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
+            /* Твои идеальные настройки отдаления */
             width: 110%; 
             height: 110%;
             transform: translate(-50%, -50%); 
@@ -107,96 +73,60 @@
             object-position: center 10%; 
         }
 
-        /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
-        .actions-side { flex: 0.8; max-width: 420px; }
+        /* ПРАВАЯ СТОРОНА: КАРТОЧКА */
+        .actions-side { flex: 1; max-width: 400px; }
 
-        /* УЛЬТРА-СТЕКЛО ДЛЯ КАРТОЧКИ */
         .glass-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 40px;
-            border-radius: 24px;
-            backdrop-filter: blur(30px);
-            /* Мягкая тень карточки + Внутренний глянцевый ободок */
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.4),
-                inset 0 0 1px rgba(255, 255, 255, 0.2);
+            border-radius: 32px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .glass-card h2 { 
-            margin-top: 0; 
-            font-size: 1.4rem; 
-            color: #ffffff; 
-            margin-bottom: 30px; 
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-align: center;
+            margin-top: 0; font-size: 1.4rem; font-weight: 600;
+            color: #e2e8f0; margin-bottom: 25px; 
         }
 
-        /* КНОПКИ В НЕОНОВОМ И СТЕКЛЯННОМ СТИЛЕ */
+        /* КНОПКИ: Чистый дизайн без кричащих цветов */
         .btn {
             display: flex; align-items: center; justify-content: center;
-            padding: 16px; border-radius: 12px;
-            text-decoration: none; font-weight: 600; font-size: 1rem;
-            transition: all 0.3s ease; margin-bottom: 15px; color: white;
-            border: 1px solid var(--glass-border);
-            letter-spacing: 0.5px;
+            padding: 18px; border-radius: 16px;
+            text-decoration: none; font-weight: 600; font-size: 1.05rem;
+            transition: all 0.2s ease; margin-bottom: 15px; color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Главная кнопка: Пылающий неон */
         .btn-demo { 
-            background: linear-gradient(135deg, #00f3ff 0%, #a158ff 100%); 
+            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%); 
             border: none;
-            color: #030406; /* Темный текст на ярком фоне лучше читается */
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
         }
         .btn-demo:hover { 
-            box-shadow: 0 0 35px rgba(0, 243, 255, 0.5); 
-            transform: translateY(-2px); 
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(79, 70, 229, 0.5);
         }
 
-        /* Кнопка звонка */
         .btn-call { 
-            background: rgba(0, 243, 255, 0.05); 
-            border-color: rgba(0, 243, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05); 
         }
         .btn-call:hover { 
-            background: rgba(0, 243, 255, 0.15); 
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #38bdf8;
         }
 
-        /* Кнопка почты */
-        .btn-mail { background: transparent; opacity: 0.7; }
-        .btn-mail:hover { opacity: 1; border-color: rgba(255, 255, 255, 0.3); }
+        .btn-mail { background: transparent; opacity: 0.7; font-size: 0.9rem; }
+        .btn-mail:hover { opacity: 1; text-decoration: underline; }
 
-        .promo-text { 
-            font-size: 0.85rem; 
-            color: #8b949e; 
-            line-height: 1.6; 
-            margin-top: 25px; 
-            text-align: center;
-            font-weight: 300;
-        }
-        .promo-text b { color: var(--neon-blue); font-weight: 600; }
-
-        /* Включить звук */
-        .sound-toggle {
-            color: var(--neon-blue); 
-            margin-top: 20px; 
-            font-size: 0.9rem; 
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        .sound-toggle:hover { opacity: 0.8; }
+        .promo-text { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-top: 25px; }
 
         /* МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 850px) {
-            .main-screen { flex-direction: column; gap: 35px; padding: 20px; }
-            .video-sphere { width: 320px; height: 320px; } 
-            .actions-side { width: 100%; }
+            .main-screen { flex-direction: column; gap: 30px; text-align: center; }
+            .video-sphere { width: 300px; height: 300px; }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -210,9 +140,9 @@
                     <source src="Avatar_Video.mp4" type="video/mp4">
                 </video>
             </div>
-            <div class="sound-toggle" onclick="toggleMute(document.querySelector('.video-sphere'))">
+            <p style="color: #38bdf8; margin-top: 20px; font-size: 0.9rem; font-weight: 500; cursor:pointer;" onclick="toggleMute(document.querySelector('.video-sphere'))">
                 🔊 Включить звук
-            </div>
+            </p>
         </div>
 
         <div class="actions-side">
@@ -233,14 +163,14 @@
     <script>
         function toggleMute(container) {
             var video = container.querySelector('video');
-            var text = document.querySelector('.sound-toggle');
+            var text = document.querySelector('.video-side p');
             if (video.muted) {
                 video.muted = false;
-                container.style.boxShadow = '0 0 45px rgba(0, 243, 255, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.1)';
+                container.style.boxShadow = '0 0 40px rgba(56, 189, 248, 0.5)';
                 text.innerHTML = "🔇 Выключить звук";
             } else {
                 video.muted = true;
-                container.style.boxShadow = '0 0 30px rgba(0, 243, 255, 0.15), inset 0 0 25px rgba(255, 255, 255, 0.1)';
+                container.style.boxShadow = '0 0 30px rgba(56, 189, 248, 0.2), 0 0 60px rgba(129, 140, 248, 0.15)';
                 text.innerHTML = "🔊 Включить звук";
             }
         }
