@@ -29,16 +29,16 @@
 
         p { color: #a3b3bc; margin-bottom: 50px; font-size: 1.25rem; font-weight: 300; }
 
-        /* ИДЕАЛЬНО КРУГЛЫЙ ПЛЕЕР (Сферический вид) */
-        .video-sphere { 
-            width: 320px; height: 320px; 
-            position: relative; 
-            border-radius: 50%; 
-            overflow: hidden; 
-            border: 5px solid rgba(88, 166, 255, 0.7); 
-            box-shadow: 0 0 60px rgba(88, 166, 255, 0.3), inset 0 0 20px rgba(0,0,0,0.5); 
-            background: #000;
-            cursor: pointer; /* Подсказка, что можно нажать */
+        /* НАСТРОЙКА ВИДЕО ВНУТРИ КРУГА: ВОЗВРАЩАЕМ ЛИЦО */
+        .video-sphere video { 
+            position: absolute; 
+            top: 50%; left: 50%;
+            /* Уменьшили масштаб до 105%. Этого достаточно, чтобы обрезать края, но вернуть лицо */
+            min-width: 105%; min-height: 105%; 
+            width: auto; height: auto;
+            transform: translate(-50%, -50%); /* Центрируем Марину по центру */
+            object-fit: cover; /* Заполняем круг без искажений */
+            /* На всякий случай, если Марина не по центру, можно добавить object-position: 50% 20%; (первое — горизонт, второе — вертикаль) */
         }
 
         /* Настройка видео: СКРЫВАЕМ ЗНАКИ И ДОРОЖКУ */
