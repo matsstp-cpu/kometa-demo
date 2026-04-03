@@ -42,33 +42,35 @@
             filter: drop-shadow(0 0 15px rgba(188, 133, 255, 0.4));
         }
 
-        /* КРУГЛОЕ ОКНО С ЭФФЕКТОМ СТЕКЛА */
-        .video-sphere { 
-            width: 340px; height: 340px; 
-            position: relative; 
-            border-radius: 50%; 
-            overflow: hidden; 
-            border: 3px solid rgba(88, 166, 255, 0.4); 
-            box-shadow: 0 0 50px rgba(88, 166, 255, 0.15); 
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .video-sphere:hover { transform: scale(1.02); }
+        /* КРУГЛОЕ ОКНО */
+.video-sphere { 
+    width: 420px; 
+    height: 420px; 
+    position: relative; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 3px solid rgba(88, 166, 255, 0.4); 
+    box-shadow: 0 0 50px rgba(88, 166, 255, 0.15); 
+    /* БЕЛЫЙ ЦВЕТ ПО КРАЯМ (если видео не на весь круг) */
+    background-color: #ffffff; 
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
-        /* ВОЗВРАЩАЕМ ЛИЦО: Убрали 140%, видео аккуратно заполняет круг */
-        .video-sphere video { 
+.video-sphere video { 
     position: absolute; 
     top: 50%; 
     left: 50%;
-    width: 180%; /* Видео будет чуть меньше самого круга */
-    height: 180%;
+    /* 110% — это «золотая середина»: Марина чуть ближе, но не на весь экран */
+    width: 110%; 
+    height: 110%;
     transform: translate(-50%, -50%); 
-    object-fit: contain; /* Показывает видео целиком без обрезки */
-    background-color: #fff; /* Заполняет пустоты белым цветом космоса */
-        }
-
+    /* cover заполнит круг, а белый фон .video-sphere сработает как подложка */
+    object-fit: cover; 
+    /* Сдвигаем на 10%, чтобы макушка не обрезалась, а лицо было в центре */
+    object-position: center 10%; 
+}
         /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
         .actions-side { flex: 1; max-width: 400px; }
 
