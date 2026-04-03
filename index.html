@@ -4,120 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* ГЛУБОКИЙ КОСМОС С ЭФФЕКТОМ ЗВЕЗДНОЙ ПЫЛИ */
+        :root {
+            --blue-neon: #58a6ff;
+            --purple-neon: #bc85ff;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
         body { 
             margin: 0; padding: 0; 
-            background: radial-gradient(circle at center, #111827 0%, #030406 100%);
+            background: radial-gradient(circle at center, #0d1117 0%, #010409 100%);
             background-attachment: fixed;
             color: white; 
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; 
+            font-family: 'Montserrat', sans-serif; 
             display: flex; align-items: center; justify-content: center; 
             min-height: 100vh; overflow-x: hidden;
         }
 
-        /* Контейнер: окна теперь ближе друг к другу */
         .main-screen { 
             display: flex; 
             flex-direction: row; 
             align-items: center; 
             justify-content: center; 
-            gap: 40px; /* Сблизили блоки */
-            max-width: 1100px; 
+            gap: 60px; 
+            max-width: 1200px; 
             width: 95%;
-            padding: 20px;
+            padding: 40px;
         }
 
-        /* ЛЕВАЯ СТОРОНА: МАРИНА */
-        .video-side { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        /* ЛЕВАЯ СТОРОНА */
+        .video-side { flex: 1.2; display: flex; flex-direction: column; align-items: center; }
 
         h1 { 
-            font-size: 2.5rem; margin-bottom: 20px; text-align: center;
+            font-size: 3rem; 
+            font-weight: 800;
+            margin-bottom: 30px; 
+            text-align: center;
+            letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
-        /* Градиент только для текста, чтобы эмодзи не красился */
         .gradient-text {
-            background: linear-gradient(90deg, #58a6ff, #bc85ff); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(188, 133, 255, 0.4));
+            background: linear-gradient(90deg, var(--blue-neon), var(--purple-neon)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            /* Неоновое свечение текста */
+            filter: drop-shadow(0 0 10px rgba(188, 133, 255, 0.5));
         }
 
-        /* КРУГЛОЕ ОКНО */
-.video-sphere { 
-    width: 420px; 
-    height: 420px; 
-    position: relative; 
-    border-radius: 50%; 
-    overflow: hidden; 
-    border: 3px solid rgba(88, 166, 255, 0.4); 
-    box-shadow: 0 0 50px rgba(88, 166, 255, 0.15); 
-    /* БЕЛЫЙ ЦВЕТ ПО КРАЯМ (если видео не на весь круг) */
-    background-color: #ffffff; 
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
+        /* КРУГЛОЕ ОКНО С НЕОНОМ */
+        .video-sphere { 
+            width: 440px; 
+            height: 440px; 
+            position: relative; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            background-color: #ffffff; /* Твой белый фон по краям */
+            /* Сложный неон: внутреннее синее свечение + внешнее фиолетовое */
+            border: 2px solid var(--glass-border);
+            box-shadow: 
+                0 0 20px rgba(88, 166, 255, 0.3),
+                0 0 60px rgba(188, 133, 255, 0.2),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.video-sphere video { 
-    position: absolute; 
-    top: 50%; 
-    left: 50%;
-    /* 110% — это «золотая середина»: Марина чуть ближе, но не на весь экран */
-    width: 110%; 
-    height: 110%;
-    transform: translate(-50%, -50%); 
-    /* cover заполнит круг, а белый фон .video-sphere сработает как подложка */
-    object-fit: cover; 
-    /* Сдвигаем на 10%, чтобы макушка не обрезалась, а лицо было в центре */
-    object-position: center 10%; 
-}
-        /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
-        .actions-side { flex: 1; max-width: 400px; }
+        .video-sphere:hover { 
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 
+                0 0 30px rgba(88, 166, 255, 0.5),
+                0 0 80px rgba(188, 133, 255, 0.4);
+        }
+
+        .video-sphere video { 
+            position: absolute; top: 50%; left: 50%;
+            width: 110%; height: 110%;
+            transform: translate(-50%, -50%); 
+            object-fit: cover;
+            object-position: center 10%;
+        }
+
+        /* ПРАВАЯ СТОРОНА: КАРТОЧКА */
+        .actions-side { flex: 0.8; max-width: 420px; }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 35px;
-            border-radius: 30px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 40px;
+            backdrop-filter: blur(25px); /* Усиленное размытие */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .glass-card h2 { margin-top: 0; font-size: 1.5rem; color: #bc85ff; margin-bottom: 25px; }
+        /* Эффект блика на стекле */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
 
-        /* КНОПКИ В СТИЛЕ СТЕКЛА И КОМЕТЫ */
+        .glass-card h2 { 
+            margin-top: 0; 
+            font-size: 1.6rem; 
+            font-weight: 600;
+            color: var(--purple-neon); 
+            margin-bottom: 30px; 
+            text-shadow: 0 0 10px rgba(188, 133, 255, 0.3);
+        }
+
+        /* КНОПКИ */
         .btn {
             display: flex; align-items: center; justify-content: center;
-            padding: 18px; border-radius: 15px;
-            text-decoration: none; font-weight: 600; font-size: 1.1rem;
-            transition: all 0.3s ease; margin-bottom: 15px; color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px; border-radius: 20px;
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease; 
+            margin-bottom: 20px; 
+            color: white;
+            border: 1px solid var(--glass-border);
         }
 
-        /* Главная кнопка: градиент кометы */
         .btn-demo { 
-            background: linear-gradient(135deg, #58a6ff 0%, #bc85ff 100%); 
+            background: linear-gradient(135deg, var(--blue-neon) 0%, var(--purple-neon) 100%); 
             border: none;
-            box-shadow: 0 10px 20px rgba(188, 133, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(88, 166, 255, 0.3);
         }
+
         .btn-demo:hover { 
-            box-shadow: 0 15px 30px rgba(188, 133, 255, 0.4); 
-            transform: translateY(-3px); 
+            box-shadow: 0 15px 35px rgba(188, 133, 255, 0.6); 
+            transform: translateY(-4px); 
+            letter-spacing: 2px;
         }
 
-        .btn-call { background: rgba(88, 166, 255, 0.1); }
-        .btn-call:hover { background: rgba(88, 166, 255, 0.2); border-color: #58a6ff; }
+        .btn-call { 
+            background: rgba(255, 255, 255, 0.05); 
+        }
 
-        .btn-mail { background: transparent; opacity: 0.8; }
-        .btn-mail:hover { opacity: 1; border-color: white; }
+        .btn-call:hover { 
+            background: rgba(88, 166, 255, 0.15); 
+            border-color: var(--blue-neon);
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+        }
 
-        .promo-text { font-size: 0.85rem; color: #8b949e; line-height: 1.4; margin-top: 20px; }
+        .btn-mail { background: transparent; opacity: 0.6; font-size: 0.9rem; }
+        .btn-mail:hover { opacity: 1; transform: translateX(5px); }
+
+        .promo-text { 
+            font-size: 0.9rem; 
+            color: #8b949e; 
+            line-height: 1.6; 
+            margin-top: 25px; 
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
 
         /* МОБИЛЬНАЯ АДАПТАЦИЯ */
-        @media (max-width: 850px) {
-            .main-screen { flex-direction: column; gap: 30px; }
-            .video-sphere { width: 280px; height: 280px; }
-            .actions-side { width: 100%; }
+        @media (max-width: 900px) {
+            .main-screen { flex-direction: column; gap: 40px; padding: 20px; }
+            .video-sphere { width: 320px; height: 320px; }
+            h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -131,8 +188,8 @@
                     <source src="Avatar_Video.mp4" type="video/mp4">
                 </video>
             </div>
-            <p style="color: #58a6ff; margin-top: 15px; font-size: 0.9rem; cursor:pointer;" onclick="toggleMute(document.querySelector('.video-sphere'))">
-                🔊 Включить звук
+            <p style="color: var(--blue-neon); margin-top: 25px; font-size: 0.9rem; font-weight: 600; cursor:pointer; text-transform: uppercase; letter-spacing: 1px;" onclick="toggleMute(document.querySelector('.video-sphere'))">
+                <span>🔊</span> Включить звук
             </p>
         </div>
 
@@ -145,7 +202,7 @@
                 <a href="mailto:hello@custom.mt" class="btn btn-mail">✉️ Написать письмо</a>
 
                 <p class="promo-text">
-                    Специально для <b>Global Tech</b>: персональный разбор процессов локализации.
+                    Специально для <b>Global Tech</b>: персональный разбор процессов локализации от наших экспертов.
                 </p>
             </div>
         </div>
@@ -157,12 +214,12 @@
             var text = document.querySelector('.video-side p');
             if (video.muted) {
                 video.muted = false;
-                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.4)';
-                text.innerHTML = "🔇 Выключить звук";
+                container.style.boxShadow = '0 0 40px rgba(88, 166, 255, 0.6), 0 0 100px rgba(188, 133, 255, 0.4)';
+                text.innerHTML = "<span>🔇</span> Выключить звук";
             } else {
                 video.muted = true;
-                container.style.boxShadow = '0 0 50px rgba(88, 166, 255, 0.15)';
-                text.innerHTML = "🔊 Включить звук";
+                container.style.boxShadow = '0 0 20px rgba(88, 166, 255, 0.3), 0 0 60px rgba(188, 133, 255, 0.2)';
+                text.innerHTML = "<span>🔊</span> Включить звук";
             }
         }
     </script>
