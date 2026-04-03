@@ -5,75 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
     <style>
-        /* Общие стили: Космический градиент */
+        /* Базовые космические стили */
         body { 
             margin: 0; padding: 0; 
             background: radial-gradient(circle at center, #1b2735 0%, #050608 100%); 
             color: white; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             display: flex; align-items: center; justify-content: center; 
             min-height: 100vh; text-align: center; 
+            overflow-x: hidden;
         }
 
-        .container { max-width: 600px; padding: 40px 20px; }
+        .container { max-width: 600px; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* Заголовок с эффектом свечения */
+        /* Заголовок с эффектом мерцания звезд */
         h1 { 
-            font-size: 2.8rem; margin-bottom: 10px; 
+            font-size: 3rem; margin-bottom: 5px; 
             background: linear-gradient(90deg, #58a6ff, #bc85ff); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+            text-shadow: 0 0 30px rgba(88, 166, 255, 0.4);
+            letter-spacing: -1px;
         }
 
-        p { color: #a3b3bc; margin-bottom: 40px; font-size: 1.2rem; font-weight: 300; }
+        p { color: #a3b3bc; margin-bottom: 50px; font-size: 1.25rem; font-weight: 300; }
 
-        /* Контейнер-кружочек для видео */
+        /* ИДЕАЛЬНО КРУГЛЫЙ ПЛЕЕР (Сферический вид) */
         .video-sphere { 
             width: 320px; height: 320px; 
-            margin: 0 auto;
             position: relative; 
             border-radius: 50%; 
             overflow: hidden; 
-            border: 4px solid rgba(88, 166, 255, 0.6); 
-            box-shadow: 0 0 50px rgba(88, 166, 255, 0.2); 
+            border: 5px solid rgba(88, 166, 255, 0.7); 
+            box-shadow: 0 0 60px rgba(88, 166, 255, 0.3), inset 0 0 20px rgba(0,0,0,0.5); 
             background: #000;
+            cursor: pointer; /* Подсказка, что можно нажать */
         }
 
-        /* Настройка видео внутри круга, чтобы скрыть водяные знаки */
+        /* Настройка видео: СКРЫВАЕМ ЗНАКИ И ДОРОЖКУ */
         .video-sphere video { 
             position: absolute; 
             top: 50%; left: 50%;
-            min-width: 105%; min-height: 105%; /* Слегка увеличиваем, чтобы обрезать края */
+            /* Увеличиваем масштаб на 120%, чтобы обрезать края со знаком */
+            min-width: 120%; min-height: 120%; 
             width: auto; height: auto;
             transform: translate(-50%, -50%); /* Центрируем Марину */
             object-fit: cover;
         }
 
-        /* Кнопка Демо */
+        /* Убираем стандартные кнопки управления в Webkit браузерах */
+        .video-sphere video::-webkit-media-controls { display: none !important; }
+
+        /* Кнопка Демо (Светящаяся звезда) */
         .cta-button { 
             display: inline-block; 
-            margin-top: 50px; 
-            padding: 20px 50px; 
+            margin-top: 60px; 
+            padding: 22px 55px; 
             background: #238636; 
             color: white; 
             text-decoration: none; 
             font-weight: bold; 
             border-radius: 50px; 
-            font-size: 1.3rem; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 10px 20px rgba(35, 134, 54, 0.3); 
+            font-size: 1.4rem; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 10px 25px rgba(35, 134, 54, 0.3); 
         }
 
         .cta-button:hover { 
-            transform: translateY(-3px) scale(1.05); 
+            transform: translateY(-5px) scale(1.05); 
             background: #2ea043; 
-            box-shadow: 0 15px 30px rgba(35, 134, 54, 0.5);
+            box-shadow: 0 15px 35px rgba(35, 134, 54, 0.6);
         }
 
         /* Адаптивность для мобильных */
         @media (max-width: 480px) {
-            .video-sphere { width: 260px; height: 260px; }
-            h1 { font-size: 2rem; }
+            .video-sphere { width: 280px; height: 280px; }
+            h1 { font-size: 2.3rem; }
+            p { font-size: 1.1rem; }
+            .cta-button { font-size: 1.2rem; padding: 18px 45px; }
         }
     </style>
 </head>
@@ -83,15 +91,28 @@
         <h1>Проект «Комета» ☄️</h1>
         <p>Марина Транслаева о будущем переводов</p>
         
-        <div class="video-sphere">
-            <video playsinline controls>
-                <source src="marina.mp4" type="video/mp4">
+        <div class="video-sphere" onclick="toggleMute(this)">
+            <video id="marinaVideo" autoplay muted loop playsinline>
+                <source src="Avatar_Video.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
         </div>
 
-        <a href="https://forms.gle/bzpaXiKaTiDXVaj18" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
+        <a href="ССЫЛКА_НА_ДЕМО" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
     </div>
+
+    <script>
+        function toggleMute(container) {
+            var video = container.querySelector('video');
+            if (video.muted) {
+                video.muted = false; // Включаем звук
+                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.5)'; // Меняем цвет свечения на фиолетовый
+            } else {
+                video.muted = true; // Выключаем звук
+                container.style.boxShadow = '0 0 60px rgba(88, 166, 255, 0.3)'; // Возвращаем синий
+            }
+        }
+    </script>
 
 </body>
 </html>
