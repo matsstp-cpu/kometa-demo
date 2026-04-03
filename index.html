@@ -4,177 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* ДИЗАЙНЕРСКИЕ ПЕРЕМЕННЫЕ */
         :root {
-            --blue-neon: #58a6ff;
-            --purple-neon: #bc85ff;
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc85ff;
+            --space-dark: #030406;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
+        /* ГЛУБОКИЙ КОСМОС С ТУМАННОСТЯМИ */
         body { 
             margin: 0; padding: 0; 
-            background: radial-gradient(circle at center, #0d1117 0%, #010409 100%);
+            background: radial-gradient(circle at center, #0b111e 0%, var(--space-dark) 100%);
             background-attachment: fixed;
             color: white; 
-            font-family: 'Montserrat', sans-serif; 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
             display: flex; align-items: center; justify-content: center; 
             min-height: 100vh; overflow-x: hidden;
+            position: relative;
         }
 
+        /* НЕОНОВЫЕ СВЕЧЕНИЯ НА ФОНЕ */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before { top: 10%; left: 15%; background: var(--neon-blue); }
+        body::after { bottom: 10%; right: 15%; background: var(--neon-purple); }
+
+        /* Контейнер */
         .main-screen { 
             display: flex; 
             flex-direction: row; 
             align-items: center; 
             justify-content: center; 
-            gap: 60px; 
+            gap: 50px; 
             max-width: 1200px; 
             width: 95%;
             padding: 40px;
+            z-index: 1; /* Поднимаем над туманностями */
         }
 
-        /* ЛЕВАЯ СТОРОНА */
+        /* ЛЕВАЯ СТОРОНА: МАРИНА */
         .video-side { flex: 1.2; display: flex; flex-direction: column; align-items: center; }
 
         h1 { 
-            font-size: 3rem; 
-            font-weight: 800;
-            margin-bottom: 30px; 
+            font-size: 2.8rem; 
+            margin-bottom: 25px; 
             text-align: center;
-            letter-spacing: -1px;
-            text-transform: uppercase;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, var(--blue-neon), var(--purple-neon)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            /* Неоновое свечение текста */
-            filter: drop-shadow(0 0 10px rgba(188, 133, 255, 0.5));
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* КРУГЛОЕ ОКНО С НЕОНОМ */
+        /* КРУГЛОЕ ОКНО В СТИЛЕ СТЕКЛЯННОЙ ЛИНЗЫ */
         .video-sphere { 
-            width: 440px; 
-            height: 440px; 
+            width: 420px; 
+            height: 420px; 
             position: relative; 
             border-radius: 50%; 
             overflow: hidden; 
-            background-color: #ffffff; /* Твой белый фон по краям */
-            /* Сложный неон: внутреннее синее свечение + внешнее фиолетовое */
-            border: 2px solid var(--glass-border);
+            border: 1px solid rgba(0, 243, 255, 0.3); /* Тонкая неоновая рамка */
+            /* Наружный неон + Внутренний светящийся контур стекла */
             box-shadow: 
-                0 0 20px rgba(88, 166, 255, 0.3),
-                0 0 60px rgba(188, 133, 255, 0.2),
-                inset 0 0 30px rgba(255, 255, 255, 0.1);
+                0 0 30px rgba(0, 243, 255, 0.15),
+                inset 0 0 25px rgba(255, 255, 255, 0.1); 
+            background-color: #ffffff; 
+            backdrop-filter: blur(25px);
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
+        
+        /* Эффект при наведении на аватар */
         .video-sphere:hover { 
-            transform: scale(1.03) rotate(1deg);
-            box-shadow: 
-                0 0 30px rgba(88, 166, 255, 0.5),
-                0 0 80px rgba(188, 133, 255, 0.4);
+            transform: scale(1.03); 
+            border-color: rgba(0, 243, 255, 0.6);
+            box-shadow: 0 0 45px rgba(0, 243, 255, 0.3);
         }
 
         .video-sphere video { 
-            position: absolute; top: 50%; left: 50%;
-            width: 110%; height: 110%;
+            position: absolute; 
+            top: 50%; 
+            left: 50%;
+            width: 110%; 
+            height: 110%;
             transform: translate(-50%, -50%); 
-            object-fit: cover;
-            object-position: center 10%;
+            object-fit: cover; 
+            object-position: center 10%; 
         }
 
-        /* ПРАВАЯ СТОРОНА: КАРТОЧКА */
+        /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
         .actions-side { flex: 0.8; max-width: 420px; }
 
+        /* УЛЬТРА-СТЕКЛО ДЛЯ КАРТОЧКИ */
         .glass-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             padding: 40px;
-            border-radius: 40px;
-            backdrop-filter: blur(25px); /* Усиленное размытие */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Эффект блика на стекле */
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: rotate(45deg);
-            pointer-events: none;
+            border-radius: 24px;
+            backdrop-filter: blur(30px);
+            /* Мягкая тень карточки + Внутренний глянцевый ободок */
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                inset 0 0 1px rgba(255, 255, 255, 0.2);
         }
 
         .glass-card h2 { 
             margin-top: 0; 
-            font-size: 1.6rem; 
-            font-weight: 600;
-            color: var(--purple-neon); 
+            font-size: 1.4rem; 
+            color: #ffffff; 
             margin-bottom: 30px; 
-            text-shadow: 0 0 10px rgba(188, 133, 255, 0.3);
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
-        /* КНОПКИ */
+        /* КНОПКИ В НЕОНОВОМ И СТЕКЛЯННОМ СТИЛЕ */
         .btn {
             display: flex; align-items: center; justify-content: center;
-            padding: 20px; border-radius: 20px;
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease; 
-            margin-bottom: 20px; 
-            color: white;
+            padding: 16px; border-radius: 12px;
+            text-decoration: none; font-weight: 600; font-size: 1rem;
+            transition: all 0.3s ease; margin-bottom: 15px; color: white;
             border: 1px solid var(--glass-border);
+            letter-spacing: 0.5px;
         }
 
+        /* Главная кнопка: Пылающий неон */
         .btn-demo { 
-            background: linear-gradient(135deg, var(--blue-neon) 0%, var(--purple-neon) 100%); 
+            background: linear-gradient(135deg, #00f3ff 0%, #a158ff 100%); 
             border: none;
-            box-shadow: 0 10px 25px rgba(88, 166, 255, 0.3);
+            color: #030406; /* Темный текст на ярком фоне лучше читается */
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
-
         .btn-demo:hover { 
-            box-shadow: 0 15px 35px rgba(188, 133, 255, 0.6); 
-            transform: translateY(-4px); 
-            letter-spacing: 2px;
+            box-shadow: 0 0 35px rgba(0, 243, 255, 0.5); 
+            transform: translateY(-2px); 
         }
 
+        /* Кнопка звонка */
         .btn-call { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(0, 243, 255, 0.05); 
+            border-color: rgba(0, 243, 255, 0.2);
         }
-
         .btn-call:hover { 
-            background: rgba(88, 166, 255, 0.15); 
-            border-color: var(--blue-neon);
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+            background: rgba(0, 243, 255, 0.15); 
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
         }
 
-        .btn-mail { background: transparent; opacity: 0.6; font-size: 0.9rem; }
-        .btn-mail:hover { opacity: 1; transform: translateX(5px); }
+        /* Кнопка почты */
+        .btn-mail { background: transparent; opacity: 0.7; }
+        .btn-mail:hover { opacity: 1; border-color: rgba(255, 255, 255, 0.3); }
 
         .promo-text { 
-            font-size: 0.9rem; 
+            font-size: 0.85rem; 
             color: #8b949e; 
             line-height: 1.6; 
             margin-top: 25px; 
-            padding-top: 20px;
-            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            font-weight: 300;
         }
+        .promo-text b { color: var(--neon-blue); font-weight: 600; }
+
+        /* Включить звук */
+        .sound-toggle {
+            color: var(--neon-blue); 
+            margin-top: 20px; 
+            font-size: 0.9rem; 
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .sound-toggle:hover { opacity: 0.8; }
 
         /* МОБИЛЬНАЯ АДАПТАЦИЯ */
-        @media (max-width: 900px) {
-            .main-screen { flex-direction: column; gap: 40px; padding: 20px; }
-            .video-sphere { width: 320px; height: 320px; }
-            h1 { font-size: 2.2rem; }
+        @media (max-width: 850px) {
+            .main-screen { flex-direction: column; gap: 35px; padding: 20px; }
+            .video-sphere { width: 320px; height: 320px; } 
+            .actions-side { width: 100%; }
         }
     </style>
 </head>
@@ -188,9 +210,9 @@
                     <source src="Avatar_Video.mp4" type="video/mp4">
                 </video>
             </div>
-            <p style="color: var(--blue-neon); margin-top: 25px; font-size: 0.9rem; font-weight: 600; cursor:pointer; text-transform: uppercase; letter-spacing: 1px;" onclick="toggleMute(document.querySelector('.video-sphere'))">
-                <span>🔊</span> Включить звук
-            </p>
+            <div class="sound-toggle" onclick="toggleMute(document.querySelector('.video-sphere'))">
+                🔊 Включить звук
+            </div>
         </div>
 
         <div class="actions-side">
@@ -202,7 +224,7 @@
                 <a href="mailto:hello@custom.mt" class="btn btn-mail">✉️ Написать письмо</a>
 
                 <p class="promo-text">
-                    Специально для <b>Global Tech</b>: персональный разбор процессов локализации от наших экспертов.
+                    Специально для <b>Global Tech</b>: персональный разбор процессов локализации.
                 </p>
             </div>
         </div>
@@ -211,15 +233,15 @@
     <script>
         function toggleMute(container) {
             var video = container.querySelector('video');
-            var text = document.querySelector('.video-side p');
+            var text = document.querySelector('.sound-toggle');
             if (video.muted) {
                 video.muted = false;
-                container.style.boxShadow = '0 0 40px rgba(88, 166, 255, 0.6), 0 0 100px rgba(188, 133, 255, 0.4)';
-                text.innerHTML = "<span>🔇</span> Выключить звук";
+                container.style.boxShadow = '0 0 45px rgba(0, 243, 255, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.1)';
+                text.innerHTML = "🔇 Выключить звук";
             } else {
                 video.muted = true;
-                container.style.boxShadow = '0 0 20px rgba(88, 166, 255, 0.3), 0 0 60px rgba(188, 133, 255, 0.2)';
-                text.innerHTML = "<span>🔊</span> Включить звук";
+                container.style.boxShadow = '0 0 30px rgba(0, 243, 255, 0.15), inset 0 0 25px rgba(255, 255, 255, 0.1)';
+                text.innerHTML = "🔊 Включить звук";
             }
         }
     </script>
