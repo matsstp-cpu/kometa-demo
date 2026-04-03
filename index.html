@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект Комета | Custom.MT</title>
+    <style>
+        body { margin: 0; padding: 0; background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+        .container { max-width: 800px; padding: 20px; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(90deg, #58a6ff, #bc85ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #8b949e; margin-bottom: 30px; font-size: 1.1rem; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; border: 1px solid rgba(88, 166, 255, 0.3); box-shadow: 0 0 30px rgba(88, 166, 255, 0.2); background: #000; }
+        .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .cta-button { display: inline-block; margin-top: 40px; padding: 18px 45px; background: #238636; color: white; text-decoration: none; font-weight: bold; border-radius: 50px; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
+        .cta-button:hover { transform: scale(1.05); background: #2ea043; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Проект «Комета» ☄️</h1>
+        <p>Марина Транслаева рассказывает, как ускорить ваши переводы</p>
+        
+        <div class="video-wrapper">
+            <video controls poster="ПРЕВЬЮ_МАРИНЫ.jpg">
+                <source src="ССЫЛКА_НА_ВИДЕО.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+
+        <a href="ТВОЯ_ССЫЛКА_НА_ДЕМО" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
+    </div>
+</body>
+</html>
