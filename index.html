@@ -5,111 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
     <style>
-        /* Базовые космические стили (ТЕМНЫЙ КОСМОС) */
+        /* ГЛУБОКИЙ КОСМОС С ЭФФЕКТОМ ЗВЕЗДНОЙ ПЫЛИ */
         body { 
             margin: 0; padding: 0; 
-            background: radial-gradient(circle at center, #1b2735 0%, #050608 100%); 
+            background: radial-gradient(circle at center, #111827 0%, #030406 100%);
+            background-attachment: fixed;
             color: white; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; 
             display: flex; align-items: center; justify-content: center; 
-            min-height: 100vh; text-align: center; 
-            overflow: hidden;
+            min-height: 100vh; overflow-x: hidden;
         }
 
-        .container { max-width: 700px; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+        /* Контейнер: окна теперь ближе друг к другу */
+        .main-screen { 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 40px; /* Сблизили блоки */
+            max-width: 1100px; 
+            width: 95%;
+            padding: 20px;
+        }
 
-        /* Заголовок с эффектом мерцания звезд */
+        /* ЛЕВАЯ СТОРОНА: МАРИНА */
+        .video-side { flex: 1; display: flex; flex-direction: column; align-items: center; }
+
         h1 { 
-            font-size: 3.2rem; margin-bottom: 5px; 
+            font-size: 2.5rem; margin-bottom: 20px; text-align: center;
             background: linear-gradient(90deg, #58a6ff, #bc85ff); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(88, 166, 255, 0.4);
-            letter-spacing: -1px;
+            filter: drop-shadow(0 0 15px rgba(188, 133, 255, 0.4));
         }
 
-        p { color: #a3b3bc; margin-bottom: 60px; font-size: 1.3rem; font-weight: 300; }
-
-        /* СТИЛЬНЫЙ ПРЯМОУГОЛЬНЫЙ ПЛЕЕР (Как консоль «Комета») */
-        .video-console { 
-            width: 100%; max-width: 560px; /* Ширина плеера */
-            aspect-ratio: 16 / 9; /* Пропорции видео */
+        /* КРУГЛОЕ ОКНО С ЭФФЕКТОМ СТЕКЛА */
+        .video-sphere { 
+            width: 340px; height: 340px; 
             position: relative; 
-            border-radius: 20px; /* Мягко скругленные углы */
-            overflow: hidden; /* Обрезает все, что выходит за плеер */
-            border: 4px solid rgba(88, 166, 255, 0.6); /* Неоновый ободок */
-            box-shadow: 0 0 50px rgba(88, 166, 255, 0.2), inset 0 0 30px rgba(0,0,0,0.7); 
-            background: #000;
-            cursor: pointer; /* Подсказка, что можно нажать */
+            border-radius: 50%; 
+            overflow: hidden; 
+            border: 3px solid rgba(88, 166, 255, 0.4); 
+            box-shadow: 0 0 50px rgba(88, 166, 255, 0.15); 
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .video-sphere:hover { transform: scale(1.02); }
+
+        /* Убираем черные створки: увеличиваем видео и центрируем */
+        .video-sphere video { 
+            position: absolute; top: 50%; left: 50%;
+            min-width: 140%; /* Увеличили, чтобы убрать черноту по бокам */
+            min-height: 100%;
+            transform: translate(-50%, -50%); 
+            object-fit: cover;
         }
 
-        /* НАСТРОЙКА ВИДЕО: ВОЗВРАЩАЕМ ЛИЦО И ХАРИЗМУ */
-        .video-console video { 
-            position: absolute; 
-            top: 50%; left: 50%;
-            /* Увеличиваем масштаб на 120%, чтобы обрезать края со знаком */
-            width: 120%; height: 120%; 
-            transform: translate(-50%, -50%); /* Центрируем Марину по центру */
-            object-fit: cover; /* Заполняем прямоугольник без искажений */
-            /* На всякий случай, если Марина не по центру, можно подкрутить object-position: 50% 20%; (первое — горизонт, второе — вертикаль) */
+        /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
+        .actions-side { flex: 1; max-width: 400px; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
-        /* Убираем стандартные кнопки управления в Webkit браузерах */
-        .video-console video::-webkit-media-controls { display: none !important; }
+        .glass-card h2 { margin-top: 0; font-size: 1.5rem; color: #bc85ff; margin-bottom: 25px; }
 
-        /* Кнопка Демо (Светящаяся звезда) */
-        .cta-button { 
-            display: inline-block; 
-            margin-top: 70px; 
-            padding: 22px 55px; 
-            background: #238636; 
-            color: white; 
-            text-decoration: none; 
-            font-weight: bold; 
-            border-radius: 50px; 
-            font-size: 1.5rem; 
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            box-shadow: 0 10px 30px rgba(35, 134, 54, 0.3); 
+        /* КНОПКИ В СТИЛЕ СТЕКЛА И КОМЕТЫ */
+        .btn {
+            display: flex; align-items: center; justify-content: center;
+            padding: 18px; border-radius: 15px;
+            text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            transition: all 0.3s ease; margin-bottom: 15px; color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .cta-button:hover { 
-            transform: translateY(-5px) scale(1.05); 
-            background: #2ea043; 
-            box-shadow: 0 15px 40px rgba(35, 134, 54, 0.6);
+        /* Главная кнопка: градиент кометы */
+        .btn-demo { 
+            background: linear-gradient(135deg, #58a6ff 0%, #bc85ff 100%); 
+            border: none;
+            box-shadow: 0 10px 20px rgba(188, 133, 255, 0.2);
+        }
+        .btn-demo:hover { 
+            box-shadow: 0 15px 30px rgba(188, 133, 255, 0.4); 
+            transform: translateY(-3px); 
         }
 
-        /* Адаптивность для мобильных */
-        @media (max-width: 480px) {
-            h1 { font-size: 2.3rem; }
-            p { font-size: 1.1rem; }
-            .cta-button { font-size: 1.2rem; padding: 18px 45px; }
+        .btn-call { background: rgba(88, 166, 255, 0.1); }
+        .btn-call:hover { background: rgba(88, 166, 255, 0.2); border-color: #58a6ff; }
+
+        .btn-mail { background: transparent; opacity: 0.8; }
+        .btn-mail:hover { opacity: 1; border-color: white; }
+
+        .promo-text { font-size: 0.85rem; color: #8b949e; line-height: 1.4; margin-top: 20px; }
+
+        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+        @media (max-width: 850px) {
+            .main-screen { flex-direction: column; gap: 30px; }
+            .video-sphere { width: 280px; height: 280px; }
+            .actions-side { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Проект «Комета» ☄️</h1>
-        <p>Марина Транслаева о будущем переводов</p>
-        
-        <div class="video-console" onclick="togglePlay(this)">
-            <video id="marinaVideo" autoplay muted loop playsinline>
-                <source src="Avatar_Video.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
+    <div class="main-screen">
+        <div class="video-side">
+            <h1>Проект «Комета» ☄️</h1>
+            <div class="video-sphere" onclick="toggleMute(this)">
+                <video id="marinaVideo" autoplay muted loop playsinline>
+                    <source src="Avatar_Video.mp4" type="video/mp4">
+                </video>
+            </div>
+            <p style="color: #58a6ff; margin-top: 15px; font-size: 0.9rem; cursor:pointer;" onclick="toggleMute(document.querySelector('.video-sphere'))">
+                🔊 Включить звук
+            </p>
         </div>
 
-        <a href="ССЫЛКА_НА_ДЕМО" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
+        <div class="actions-side">
+            <div class="glass-card">
+                <h2>Свяжитесь с нами</h2>
+                
+                <a href="https://calendly.com/your-link" class="btn btn-demo">🚀 Запросить демо</a>
+                <a href="tel:+79991234567" class="btn btn-call">📞 Позвонить</a>
+                <a href="mailto:hello@custom.mt" class="btn btn-mail">✉️ Написать письмо</a>
+
+                <p class="promo-text">
+                    Специально для <b>Global Tech</b>: персональный разбор процессов локализации.
+                </p>
+            </div>
+        </div>
     </div>
 
     <script>
-        function togglePlay(container) {
+        function toggleMute(container) {
             var video = container.querySelector('video');
+            var text = document.querySelector('.video-side p');
             if (video.muted) {
-                video.muted = false; // Включаем звук
-                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.5)'; // Меняем свечение на фиолетовый
+                video.muted = false;
+                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.4)';
+                text.innerHTML = "🔇 Выключить звук";
             } else {
-                video.muted = true; // Выключаем звук
-                container.style.boxShadow = '0 0 60px rgba(88, 166, 255, 0.2)'; // Возвращаем синий
+                video.muted = true;
+                container.style.boxShadow = '0 0 50px rgba(88, 166, 255, 0.15)';
+                text.innerHTML = "🔊 Включить звук";
             }
         }
     </script>
