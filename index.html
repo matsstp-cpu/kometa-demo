@@ -18,7 +18,7 @@
 
         .container { max-width: 700px; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* Заголовок с эффектом мерцания и свечения */
+        /* Заголовок с эффектом мерцания звезд */
         h1 { 
             font-size: 3.2rem; margin-bottom: 5px; 
             background: linear-gradient(90deg, #58a6ff, #bc85ff); 
@@ -29,27 +29,26 @@
 
         p { color: #a3b3bc; margin-bottom: 60px; font-size: 1.3rem; font-weight: 300; }
 
-        /* СТИЛЬНЫЙ ПРЯМОУГОЛЬНЫЙ ПЛЕЕР (Как консоль «Комета») */
+        /* СТИЛЬНЫЙ ПЛЕЕР-КОНСОЛЬ (С Letterboxing-трюком) */
         .video-console { 
             width: 100%; max-width: 560px; /* Ширина плеера */
-            aspect-ratio: 16 / 9; /* Пропорции видео */
+            aspect-ratio: 4 / 3; /* Сделали пропорции 4:3 вместо 16:9, чтобы обрезать знак полосами */
             position: relative; 
             border-radius: 20px; /* Мягко скругленные углы */
             overflow: hidden; /* Обрезает все, что выходит за плеер */
             border: 4px solid rgba(88, 166, 255, 0.6); /* Неоновый ободок */
-            box-shadow: 0 0 50px rgba(88, 166, 255, 0.2), inset 0 0 30px rgba(0,0,0,0.7); 
+            box-shadow: 0 0 50px rgba(88, 166, 255, 0.2), inset 0 0 30px rgba(0,0,0,0.8); 
             background: #000;
             cursor: pointer; /* Подсказка, что можно нажать */
         }
 
-        /* НАСТРОЙКА ВИДЕО: ВОЗВРАЩАЕМ ЛИЦО И ХАРИЗМУ */
+        /* НАСТРОЙКА ВИДЕО: ВОЗВРАЩАЕМ ЛИЦО И ХАРИЗМУ (БЕЗ УВЕЛИЧЕНИЯ) */
         .video-console video { 
             position: absolute; 
             top: 50%; left: 50%;
-            /* Масштабируем до 115%. Этого достаточно, чтобы обрезать края, но вернуть лицо целиком */
-            min-width: 115%; min-height: 115%; 
-            width: auto; height: auto;
-            transform: translate(-50%, -50%); /* Центрируем Марину по центру */
+            /* Убрали принудительное увеличение, видео играет в своем масштабе */
+            width: 100%; height: 100%; 
+            transform: translate(-50%, -50%); /* Центрируем */
             object-fit: cover; /* Заполняем прямоугольник без искажений */
             /* На всякий случай, если Марина не по центру, можно подкрутить object-position: 50% 20%; (первое — горизонт, второе — вертикаль) */
         }
@@ -92,18 +91,18 @@
         <h1>Проект «Комета» ☄️</h1>
         <p>Марина Транслаева о будущем переводов</p>
         
-        <div class="video-console" onclick="togglePlay(this)">
+        <div class="video-console" onclick="toggleMute(this)">
             <video id="marinaVideo" autoplay muted loop playsinline>
                 <source src="Avatar_Video.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
         </div>
 
-        <a href="https://forms.gle/bzpaXiKaTiDXVaj18" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
+        <a href="ССЫЛКА_НА_ДЕМО" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
     </div>
 
     <script>
-        function togglePlay(container) {
+        function toggleMute(container) {
             var video = container.querySelector('video');
             if (video.muted) {
                 video.muted = false; // Включаем звук
