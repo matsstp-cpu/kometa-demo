@@ -33,6 +33,10 @@
 
         h1 { 
             font-size: 2.5rem; margin-bottom: 20px; text-align: center;
+        }
+
+        /* Градиент только для текста, чтобы эмодзи не красился */
+        .gradient-text {
             background: linear-gradient(90deg, #58a6ff, #bc85ff); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px rgba(188, 133, 255, 0.4));
@@ -53,13 +57,14 @@
         }
         .video-sphere:hover { transform: scale(1.02); }
 
-        /* Убираем черные створки: увеличиваем видео и центрируем */
+        /* ВОЗВРАЩАЕМ ЛИЦО: Убрали 140%, видео аккуратно заполняет круг */
         .video-sphere video { 
             position: absolute; top: 50%; left: 50%;
-            min-width: 140%; /* Увеличили, чтобы убрать черноту по бокам */
-            min-height: 100%;
+            width: 102%; /* Чуть-чуть больше 100%, чтобы избежать тонких черных полосок по краям от HeyGen */
+            height: 102%;
             transform: translate(-50%, -50%); 
-            object-fit: cover;
+            object-fit: cover; /* Заполняет круг без сплющивания */
+            object-position: center 15%; /* Сдвигает фокус чуть выше, чтобы лицо точно не обрезалось */
         }
 
         /* ПРАВАЯ СТОРОНА: КАРТОЧКА И КНОПКИ */
@@ -116,7 +121,7 @@
 
     <div class="main-screen">
         <div class="video-side">
-            <h1>Проект «Комета» ☄️</h1>
+            <h1><span class="gradient-text">Проект «Комета»</span> ☄️</h1>
             <div class="video-sphere" onclick="toggleMute(this)">
                 <video id="marinaVideo" autoplay muted loop playsinline>
                     <source src="Avatar_Video.mp4" type="video/mp4">
