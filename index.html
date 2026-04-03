@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
     <style>
-        /* Базовые космические стили */
+        /* Базовые космические стили (ТЕМНЫЙ КОСМОС) */
         body { 
             margin: 0; padding: 0; 
             background: radial-gradient(circle at center, #1b2735 0%, #050608 100%); 
@@ -21,13 +21,13 @@
             flex-direction: row; 
             align-items: center; 
             justify-content: center; 
-            gap: 50px; 
+            gap: 60px; 
             max-width: 1200px; 
             width: 90%;
             padding: 40px;
         }
 
-        /* ЛЕВАЯ ЧАСТЬ: ВИДЕО-КОНСОЛЬ */
+        /* ЛЕВАЯ ЧАСТЬ: ВОЗВРАЩАЕМ «КРУЖОЧЕК» МАРИНЫ */
         .video-side { flex: 1.5; display: flex; flex-direction: column; align-items: flex-start; }
 
         h1 { 
@@ -37,26 +37,33 @@
             text-shadow: 0 0 30px rgba(88, 166, 255, 0.4);
         }
 
-        .video-console { 
-            width: 100%; 
-            aspect-ratio: 16 / 9; 
+        /* СТИЛЬНЫЙ КРУГЛЫЙ ПЛЕЕР (С Letterboxing-трюком) */
+        .video-sphere { 
+            width: 320px; height: 320px; /* Размер кружочка */
             position: relative; 
-            border-radius: 24px; 
-            overflow: hidden; 
-            border: 4px solid rgba(88, 166, 255, 0.6); 
-            box-shadow: 0 0 60px rgba(88, 166, 255, 0.2); 
+            border-radius: 50%; /* Делает плеер идеально круглым */
+            overflow: hidden; /* Обрезает все, что выходит за плеер */
+            border: 5px solid rgba(88, 166, 255, 0.6); /* Неоновый ободок */
+            box-shadow: 0 0 60px rgba(88, 166, 255, 0.2), inset 0 0 20px rgba(0,0,0,0.8); 
             background: #000;
-            cursor: pointer;
+            cursor: pointer; /* Подсказка, что можно нажать */
         }
 
-        .video-console video { 
-            position: absolute; top: 50%; left: 50%;
+        /* НАСТРОЙКА ВИДЕО: ОТДАЛЯЕМ МАРИНУ И ПРЯЧЕМ ЗНАК */
+        .video-sphere video { 
+            position: absolute; 
+            top: 50%; left: 50%;
+            /* УМЕНЬШАЕМ МАСШТАБ, ЧТОБЫ ВОЗВРАТИТЬ КУСОК (ОТДАЛИТЬ) */
             width: 100%; height: 100%; 
-            transform: translate(-50%, -50%); 
-            object-fit: cover; /* Здесь можешь менять на contain, если лицо все еще режется */
+            transform: translate(-50%, -50%); /* Центрируем Марину по центру */
+            object-fit: contain; /* Видео играет в своем масштабе, черные полосы по краям */
+            /* На всякий случай, если Марина не по центру, можно подкрутить object-position: 50% 20%; (первое — горизонт, второе — вертикаль) */
         }
 
-        /* ПРАВАЯ ЧАСТЬ: КНОПКИ */
+        /* Убираем стандартные кнопки управления в Webkit браузерах */
+        .video-sphere video::-webkit-media-controls { display: none !important; }
+
+        /* ПРАВАЯ ЧАСТЬ: КНОПКИ ДЕЙСТВИЙ */
         .actions-side { 
             flex: 1; 
             display: flex; 
@@ -114,24 +121,24 @@
     <div class="main-screen">
         <div class="video-side">
             <h1>Проект «Комета» ☄️</h1>
-            <div class="video-console" onclick="toggleMute(this)">
+            <div class="video-sphere" onclick="toggleMute(this)">
                 <video id="marinaVideo" autoplay muted loop playsinline>
                     <source src="Avatar_Video.mp4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
-            <p style="color: #8b949e; margin-top: 15px;">Кликните на видео, чтобы включить звук</p>
+            <p style="color: #8b949e; margin-top: 15px; text-align: left;">Кликните на видео, чтобы включить звук</p>
         </div>
 
         <div class="actions-side">
             <div class="action-card">
                 <h2>Свяжитесь с нами</h2>
                 
-                <a href="https://forms.gle/bzpaXiKaTiDXVaj18" class="btn btn-demo">🚀 Запросить демо</a>
+                <a href="ССЫЛКА_НА_ДЕМО" class="btn btn-demo">🚀 Запросить демо</a>
                 
-                <a href="tel:+79613068326" class="btn btn-call">📞 Позвонить</a>
+                <a href="tel:+79991234567" class="btn btn-call">📞 Позвонить</a>
                 
-                <a href="mailto:a.mats@localtrans.ru" class="btn btn-mail">✉️ Отправить письмо</a>
+                <a href="mailto:hello@custom.mt" class="btn btn-mail">✉️ Отправить письмо</a>
 
                 <p style="font-size: 0.9rem; color: #8b949e; margin-top: 15px; line-height: 1.4;">
                     Участникам <b>Global Tech</b> — приоритетная поддержка и индивидуальные условия внедрения.
@@ -144,11 +151,11 @@
         function toggleMute(container) {
             var video = container.querySelector('video');
             if (video.muted) {
-                video.muted = false;
-                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.5)';
+                video.muted = false; // Включаем звук
+                container.style.boxShadow = '0 0 60px rgba(188, 133, 255, 0.5)'; // Меняем свечение на фиолетовый
             } else {
-                video.muted = true;
-                container.style.boxShadow = '0 0 60px rgba(88, 166, 255, 0.2)';
+                video.muted = true; // Выключаем звук
+                container.style.boxShadow = '0 0 60px rgba(88, 166, 255, 0.2)'; // Возвращаем синий
             }
         }
     </script>
