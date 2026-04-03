@@ -42,10 +42,9 @@
             filter: drop-shadow(0 0 15px rgba(188, 133, 255, 0.4));
         }
 
-        /* КРУГЛОЕ ОКНО С ЭФФЕКТОМ СТЕКЛА (УВЕЛИЧИЛИ РАЗМЕР) */
+        /* КРУГЛОЕ ОКНО С ЭФФЕКТОМ СТЕКЛА */
         .video-sphere { 
-            width: 420px; /* Было 340px, стало 420px */
-            height: 420px; /* Было 340px, стало 420px */
+            width: 340px; height: 340px; 
             position: relative; 
             border-radius: 50%; 
             overflow: hidden; 
@@ -58,12 +57,12 @@
         }
         .video-sphere:hover { transform: scale(1.02); }
 
-        /* ВОЗВРАЩАЕМ ЛИЦО: видео аккуратно заполняет круг */
+        /* ВОЗВРАЩАЕМ ЛИЦО: Убрали 140%, видео аккуратно заполняет круг */
         .video-sphere video { 
             position: absolute; top: 50%; left: 50%;
-            width: 100%; 
+            width: 100%; /* Чуть-чуть больше 100%, чтобы избежать тонких черных полосок по краям от HeyGen */
             height: 100%;
-            transform: translate(-50%, -50%); 
+            transform: translate(-60%, -60%); 
             object-fit: cover; /* Заполняет круг без сплющивания */
             object-position: center 30%; /* Сдвигает фокус чуть выше, чтобы лицо точно не обрезалось */
         }
@@ -113,7 +112,7 @@
         /* МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 850px) {
             .main-screen { flex-direction: column; gap: 30px; }
-            .video-sphere { width: 320px; height: 320px; } /* Увеличили для мобильных */
+            .video-sphere { width: 280px; height: 280px; }
             .actions-side { width: 100%; }
         }
     </style>
