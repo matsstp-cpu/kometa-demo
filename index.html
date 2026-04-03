@@ -5,33 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проект Комета | Custom.MT</title>
     <style>
-        body { margin: 0; padding: 0; background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; overflow-x: hidden; }
-        .container { max-width: 800px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(90deg, #58a6ff, #bc85ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: #8b949e; margin-bottom: 30px; font-size: 1.1rem; }
-        
-        /* СТИЛИ ДЛЯ КРУГЛОГО ВИДЕО */
-        .video-circle-container { width: 300px; /* Размер круга */ height: 300px; /* Размер круга */ position: relative; border-radius: 50%; /* Делает контейнер круглым */ overflow: hidden; /* Обрезает все, что выходит за круг */ border: 3px solid rgba(88, 166, 255, 0.5); /* Неоновый ободок */ box-shadow: 0 0 30px rgba(88, 166, 255, 0.3); background: #000; }
-        
-        .video-circle-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; /* Масштабирует видео, чтобы оно заполнило круг без искажений */ }
+        /* Общие стили: Космический градиент */
+        body { 
+            margin: 0; padding: 0; 
+            background: radial-gradient(circle at center, #1b2735 0%, #050608 100%); 
+            color: white; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; text-align: center; 
+        }
 
-        .cta-button { display: inline-block; margin-top: 40px; padding: 18px 45px; background: #238636; color: white; text-decoration: none; font-weight: bold; border-radius: 50px; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); }
-        .cta-button:hover { transform: scale(1.05); background: #2ea043; }
+        .container { max-width: 600px; padding: 40px 20px; }
+
+        /* Заголовок с эффектом свечения */
+        h1 { 
+            font-size: 2.8rem; margin-bottom: 10px; 
+            background: linear-gradient(90deg, #58a6ff, #bc85ff); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+        }
+
+        p { color: #a3b3bc; margin-bottom: 40px; font-size: 1.2rem; font-weight: 300; }
+
+        /* Контейнер-кружочек для видео */
+        .video-sphere { 
+            width: 320px; height: 320px; 
+            margin: 0 auto;
+            position: relative; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            border: 4px solid rgba(88, 166, 255, 0.6); 
+            box-shadow: 0 0 50px rgba(88, 166, 255, 0.2); 
+            background: #000;
+        }
+
+        /* Настройка видео внутри круга, чтобы скрыть водяные знаки */
+        .video-sphere video { 
+            position: absolute; 
+            top: 50%; left: 50%;
+            min-width: 105%; min-height: 105%; /* Слегка увеличиваем, чтобы обрезать края */
+            width: auto; height: auto;
+            transform: translate(-50%, -50%); /* Центрируем Марину */
+            object-fit: cover;
+        }
+
+        /* Кнопка Демо */
+        .cta-button { 
+            display: inline-block; 
+            margin-top: 50px; 
+            padding: 20px 50px; 
+            background: #238636; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            font-size: 1.3rem; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 10px 20px rgba(35, 134, 54, 0.3); 
+        }
+
+        .cta-button:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            background: #2ea043; 
+            box-shadow: 0 15px 30px rgba(35, 134, 54, 0.5);
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 480px) {
+            .video-sphere { width: 260px; height: 260px; }
+            h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Проект «Комета» ☄️</h1>
-        <p>Марина Транслаева рассказывает, как ускорить ваши переводы</p>
+        <p>Марина Транслаева о будущем переводов</p>
         
-        <div class="video-circle-container">
-            <video controls poster="ПРЕВЬЮ_МАРИНЫ.jpg">
-                <source src="https://vimeo.com/1179893952?share=copy&fl=sv&fe=ci" type="video/mp4">
+        <div class="video-sphere">
+            <video playsinline controls>
+                <source src="marina.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
         </div>
 
         <a href="https://forms.gle/bzpaXiKaTiDXVaj18" class="cta-button">ЗАПИСАТЬСЯ НА ДЕМО</a>
     </div>
+
 </body>
 </html>
