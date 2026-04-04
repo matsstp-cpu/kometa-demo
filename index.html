@@ -9,15 +9,18 @@
             --neon-blue: #38bdf8;
             --neon-purple: #818cf8;
             --bg-dark: #030406;
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --glass-highlight: rgba(255, 255, 255, 0.15);
         }
 
         body { 
             margin: 0; padding: 0; 
             background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at 50% 30%, #1e1b4b 0%, var(--bg-dark) 70%);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(129, 140, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 10%, #1e1b4b 0%, var(--bg-dark) 80%);
             background-attachment: fixed;
             color: #f8fafc; 
             font-family: 'Inter', -apple-system, system-ui, sans-serif; 
@@ -27,18 +30,26 @@
 
         .main-screen { 
             display: flex; flex-direction: row; align-items: center; justify-content: center; 
-            gap: 60px; max-width: 1100px; width: 95%; padding: 40px 20px;
+            gap: 80px; max-width: 1200px; width: 95%; padding: 40px;
         }
 
-        .video-side { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        h1 { font-size: 2.7rem; font-weight: 700; margin-bottom: 30px; text-align: center; }
+        .video-side { flex: 1.2; display: flex; flex-direction: column; align-items: center; position: relative; }
+        
+        /* Свечение за маскотом для объема */
+        .video-side::after {
+            content: ''; position: absolute; width: 300px; height: 300px;
+            background: var(--neon-blue); filter: blur(120px); opacity: 0.15;
+            z-index: -1; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 40px; text-align: center; letter-spacing: -0.03em; }
         .gradient-text {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 15px rgba(129, 140, 248, 0.4));
+            filter: drop-shadow(0 0 20px rgba(129, 140, 248, 0.3));
         }
 
-        /* КРУГЛОЕ ОКНО МАРИНЫ (МАСШТАБ ПО ПОЯС) */
+        /* --- ФИКСИРОВАННЫЙ КОД МАСКОТА --- */
         .video-sphere { 
             width: 400px; height: 400px; position: relative; border-radius: 50%; 
             overflow: hidden; background-color: #ffffff; 
@@ -47,76 +58,83 @@
             cursor: pointer; transition: all 0.4s ease;
         }
         
-       .video-sphere video { 
-    position: absolute; 
-    /* Центрируем сам контейнер видео относительно круга */
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    
-    /* Увеличиваем до 115%, чтобы при вертикальном видео 9:16 
-       у нас не было пустых полей по бокам круга */
-    width: 125%; 
-    height: 125%; 
-    
-    /* 'cover' обеспечит заполнение без искажений пропорций */
-    object-fit: contain; 
-    
-    /* 15% — это магическое число для вертикальных видео: 
-       оно подтягивает картинку чуть выше, чтобы лицо было в фокусе, 
-       а логотип на футболке и пояс оставались в кадре */
-    object-position: center 20%; 
-}
-
-        .mute-toggle { color: var(--neon-blue); margin-top: 20px; font-size: 0.9rem; cursor: pointer; }
-
-        /* КАРТОЧКА */
-        .actions-side { flex: 1; max-width: 420px; }
-        .glass-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            padding: 45px 40px; border-radius: 24px; backdrop-filter: blur(24px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        .video-sphere video { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 125%; height: 125%; object-fit: contain; object-position: center 20%; 
         }
-        .glass-card h2 { margin-top: 0; font-size: 1.5rem; color: #ffffff; margin-bottom: 30px; }
+        /* --- КОНЕЦ ФИКСИРОВАННОГО КОДА --- */
+
+        .mute-toggle { color: var(--neon-blue); margin-top: 25px; font-size: 0.9rem; font-weight: 500; cursor: pointer; opacity: 0.8; transition: 0.3s; }
+        .mute-toggle:hover { opacity: 1; text-shadow: 0 0 10px var(--neon-blue); }
+
+        .actions-side { flex: 1; max-width: 440px; }
+        
+        .glass-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight);
+            padding: 50px 40px; border-radius: 32px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.05);
+        }
+        
+        .glass-card h2 { margin: 0 0 35px 0; font-size: 1.6rem; font-weight: 700; color: #ffffff; text-align: center; }
 
         .btn {
-            display: flex; align-items: center; justify-content: center; padding: 18px; border-radius: 14px;
-            text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; margin-bottom: 16px; 
-            color: white; border: 1px solid var(--glass-border); cursor: pointer; width: 100%; box-sizing: border-box;
+            display: flex; align-items: center; justify-content: center; padding: 20px; border-radius: 16px;
+            text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            margin-bottom: 18px; color: white; border: 1px solid var(--glass-border); cursor: pointer; width: 100%; box-sizing: border-box;
         }
-        .btn-demo { background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); border: none; }
-        .btn-call { background: rgba(255, 255, 255, 0.03); }
-        .btn-call:hover { border-color: var(--neon-blue); }
 
-        /* МОДАЛЬНЫЕ ОКНА */
+        .btn-demo { 
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); 
+            border: none; box-shadow: 0 10px 25px rgba(129, 140, 248, 0.3);
+        }
+        .btn-demo:hover { transform: scale(1.02); box-shadow: 0 15px 35px rgba(129, 140, 248, 0.5); }
+
+        .btn-call { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px); }
+        .btn-call:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+
+        /* МОДАЛЬНЫЕ ОКНА (АПГРЕЙД) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000;
+            opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 1000;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         
         .modal-content {
-            background: #0d1117; border: 1px solid var(--glass-border);
-            width: 90%; max-width: 450px; padding: 40px; border-radius: 24px; position: relative;
-            text-align: center;
+            background: linear-gradient(180deg, #0d1117 0%, #05070a 100%); 
+            border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight);
+            width: 90%; max-width: 520px; padding: 45px; border-radius: 32px; position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
         }
         
-        .close-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer; }
+        .close-btn { position: absolute; top: 25px; right: 25px; background: transparent; border: none; color: #94a3b8; font-size: 2rem; cursor: pointer; line-height: 1; }
+        .modal-content h3 { font-size: 1.8rem; margin: 0 0 10px 0; color: #fff; }
+        .modal-content p { color: #94a3b8; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.6; }
 
-        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 0.85rem; padding-left: 5px; }
+
         .glass-input, .glass-select, .glass-textarea {
-            width: 100%; padding: 12px; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;
-            font-size: 0.95rem; box-sizing: border-box;
+            width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white;
+            font-size: 1rem; box-sizing: border-box; transition: 0.3s; font-family: inherit;
+        }
+        .glass-input:focus, .glass-select:focus, .glass-textarea:focus {
+            outline: none; border-color: var(--neon-blue); background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
-        .phone-display { font-size: 1.8rem; font-weight: 700; color: var(--neon-blue); margin: 20px 0; display: block; }
+        /* Кастомный выпадающий список */
+        .glass-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2338bdf8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; padding-right: 45px; }
+        .glass-select option { background: #0d1117; color: white; }
 
-        @media (max-width: 900px) {
-            .main-screen { flex-direction: column; text-align: center; }
-            .video-sphere { width: 300px; height: 300px; }
+        .phone-number { font-size: 2.2rem; font-weight: 800; color: var(--neon-blue); margin: 25px 0; display: block; letter-spacing: -0.02em; }
+
+        @media (max-width: 950px) {
+            .main-screen { flex-direction: column; gap: 50px; padding: 20px; text-align: center; }
+            .video-sphere { width: 320px; height: 320px; }
+            h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -140,6 +158,9 @@
                 <h2>Свяжитесь с нами</h2>
                 <button onclick="openModal('demoModal')" class="btn btn-demo">🚀 Запросить демо</button>
                 <button onclick="openModal('callModal')" class="btn btn-call">📞 Позвонить</button>
+                <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                    Для участников <b>Global Tech</b>: персональный разбор процессов автоматизации перевода.
+                </p>
             </div>
         </div>
     </div>
@@ -147,46 +168,50 @@
     <div class="modal-overlay" id="demoModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('demoModal')">×</button>
-            <h3>Запрос демо</h3>
+            <h3>Запросить демо</h3>
+            <p>Настроим персональный показ систем Custom.MT под ваши задачи.</p>
             <form action="https://formspree.io/f/YOUR_ID" method="POST">
                 <div class="form-group"><input type="text" name="name" class="glass-input" required placeholder="Имя и Фамилия"></div>
                 <div class="form-group"><input type="text" name="company" class="glass-input" required placeholder="Компания"></div>
-                <div class="form-group"><input type="email" name="email" class="glass-input" required placeholder="E-mail"></div>
-                <div class="form-group"><input type="tel" name="phone" class="glass-input" required placeholder="Телефон"></div>
+                <div class="form-group"><input type="email" name="email" class="glass-input" required placeholder="Рабочий E-mail"></div>
                 <div class="form-group">
                     <select name="product" class="glass-select">
+                        <option value="" disabled selected>Какой продукт интересует?</option>
                         <option value="Console">Custom.MT Console</option>
                         <option value="Portal">Document Translation Portal</option>
-                        <option value="Other">Другие интеграции</option>
+                        <option value="Integration">Интеграции через API</option>
+                        <option value="Unsure">Пока не уверен(а)</option>
                     </select>
                 </div>
-                <div class="form-group"><textarea name="task" class="glass-textarea" placeholder="Ваша задача..."></textarea></div>
-                <button type="submit" class="btn btn-demo">Отправить</button>
+                <div class="form-group"><textarea name="info" class="glass-textarea" placeholder="Опишите ваши задачи (форматы документов, языки)..."></textarea></div>
+                <button type="submit" class="btn btn-demo">Отправить запрос</button>
             </form>
         </div>
     </div>
 
     <div class="modal-overlay" id="callModal">
-        <div class="modal-content">
+        <div class="modal-content" style="text-align: center;">
             <button class="close-btn" onclick="closeModal('callModal')">×</button>
-            <h3>Связаться по телефону</h3>
-            <p>Наш специалист готов ответить на ваши вопросы:</p>
-            <span class="phone-display">+7 (999) 123-45-67</span>
-            <a href="tel:+79991234567" class="btn btn-demo">Начать вызов</a>
-            <p style="font-size: 0.8rem; color: #94a3b8;">Звонок бесплатный для жителей РФ</p>
+            <h3>Прямая связь</h3>
+            <p>Готовы обсудить ваш проект прямо сейчас:</p>
+            <span class="phone-number">+7 (999) 123-45-67</span>
+            <a href="tel:+79991234567" class="btn btn-demo">Набрать номер</a>
+            <p style="font-size: 0.8rem; color: #475569; margin-top: 20px;">Пн–Пт, 10:00–19:00 (МСК)</p>
         </div>
     </div>
 
     <script>
         function toggleMute(container) {
-            var video = container.querySelector('video');
-            var icon = document.getElementById('muteIcon');
-            var text = document.getElementById('muteText');
+            const video = container.querySelector('video');
+            const icon = document.getElementById('muteIcon');
+            const text = document.getElementById('muteText');
             if (video.muted) {
                 video.muted = false;
+                container.style.boxShadow = '0 0 60px rgba(129, 140, 248, 0.4)';
                 icon.innerHTML = "🔇"; text.innerHTML = "Выключить звук";
             } else {
                 video.muted = true;
+                container.style.boxShadow = '0 0 40px rgba(56, 189, 248, 0.15)';
                 icon.innerHTML = "🔊"; text.innerHTML = "Включить звук";
             }
         }
@@ -200,12 +225,7 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
+        window.onclick = (e) => { if (e.target.classList.contains('modal-overlay')) closeModal(e.target.id); }
     </script>
 </body>
 </html>
