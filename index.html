@@ -53,10 +53,12 @@
         .video-sphere { 
             width: 400px; height: 400px; position: relative; border-radius: 50%; 
             overflow: hidden; background-color: #ffffff; 
-            border: 1px solid var(--glass-highlight);
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
-            cursor: pointer; transition: all 0.4s ease;
-        }
+          border: 1px solid rgba(56, 189, 248, 0.3); /* Чуть подсветим саму рамку */
+    box-shadow: 
+        0 0 25px rgba(56, 189, 248, 0.4), 
+        0 0 60px rgba(129, 140, 248, 0.2),
+        inset 0 0 15px rgba(255, 255, 255, 0.1); /* Внутреннее свечение */
+}
         
         .video-sphere video { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
@@ -72,8 +74,12 @@
         .glass-card {
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight);
             padding: 50px 40px; border-radius: 32px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.05);
-        }
+          box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.7), 
+        0 0 40px rgba(56, 189, 248, 0.15); /* Мягкое свечение подложки */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(56, 189, 248, 0.3); /* Тонкий яркий блик сверху */
+}
         
         .glass-card h2 { margin: 0 0 35px 0; font-size: 1.6rem; font-weight: 700; color: #ffffff; text-align: center; }
 
