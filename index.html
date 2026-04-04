@@ -40,19 +40,33 @@
 
         /* КРУГЛОЕ ОКНО МАРИНЫ (МАСШТАБ ПО ПОЯС) */
         .video-sphere { 
-            width: 400px; height: 400px; position: relative; border-radius: 100%; 
+            width: 400px; height: 400px; position: relative; border-radius: 50%; 
             overflow: hidden; background-color: #ffffff; 
             border: 1px solid var(--glass-highlight);
             box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
             cursor: pointer; transition: all 0.4s ease;
         }
         
-        .video-sphere video { 
-            position: absolute; top: 0; left: 0; width: 110%; height: 110%;
-            /* 'contain' позволяет увидеть логотип на футболке и маскота по пояс */
-            object-fit: contain; 
-            object-position: center bottom;
-        }
+       .video-sphere video { 
+    position: absolute; 
+    /* Центрируем сам контейнер видео относительно круга */
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    
+    /* Увеличиваем до 115%, чтобы при вертикальном видео 9:16 
+       у нас не было пустых полей по бокам круга */
+    width: 115%; 
+    height: 115%; 
+    
+    /* 'cover' обеспечит заполнение без искажений пропорций */
+    object-fit: cover; 
+    
+    /* 15% — это магическое число для вертикальных видео: 
+       оно подтягивает картинку чуть выше, чтобы лицо было в фокусе, 
+       а логотип на футболке и пояс оставались в кадре */
+    object-position: center 15%; 
+}
 
         .mute-toggle { color: var(--neon-blue); margin-top: 20px; font-size: 0.9rem; cursor: pointer; }
 
