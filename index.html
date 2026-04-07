@@ -180,37 +180,47 @@
     <div class="modal-overlay" id="trialModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('trialModal')">✕</button>
-            <h3 style="margin-bottom: 10px;">Запрос доступа</h3>
-            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px;">Укажите рабочую почту для активации доступа.</p>
-            <form id="trialForm">
-                <input type="email" placeholder="Рабочая почта" class="glass-input" required>
+            
+            <div id="trialFormContainer">
+                <h3 style="margin-bottom: 10px;">Запрос доступа</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px;">Укажите рабочую почту для активации доступа.</p>
                 
-                <div style="text-align:left; font-size: 0.85rem; margin-bottom: 25px;">
-                    <p style="color: var(--neon-blue); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Выбор платформы:</p>
+                <form id="trialForm" action="https://formspree.io/f/xaqlprnn" method="POST">
+                    <input type="email" name="email" placeholder="Рабочая почта" class="glass-input" required>
                     
-                    <label style="display:block; margin-bottom:12px; cursor:pointer;">
-                        <input type="checkbox" name="p1" style="margin-right: 8px;"> 
-                        <strong>Document Translation Portal</strong> 
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Перевод документов с сохранением верстки</div>
-                    </label>
-                    
-                    <label style="display:block; margin-bottom:12px; cursor:pointer;">
-                        <input type="checkbox" name="p2" style="margin-right: 8px;"> 
-                        <strong>Custom.MT Console</strong> 
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Управление LLM и кастомными моделями</div>
-                    </label>
+                    <div style="text-align:left; font-size: 0.85rem; margin-bottom: 25px;">
+                        <p style="color: var(--neon-blue); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Выбор платформы:</p>
+                        
+                        <label style="display:block; margin-bottom:12px; cursor:pointer;">
+                            <input type="checkbox" name="Product_Document_Portal" value="Yes" style="margin-right: 8px;"> 
+                            <strong>Document Translation Portal</strong> 
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Перевод документов с сохранением верстки</div>
+                        </label>
+                        
+                        <label style="display:block; margin-bottom:12px; cursor:pointer;">
+                            <input type="checkbox" name="Product_Custom_MT" value="Yes" style="margin-right: 8px;"> 
+                            <strong>Custom.MT Console</strong> 
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Управление LLM и кастомными моделями</div>
+                        </label>
 
-                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
-                    
-                    <label style="display:flex; align-items: center; gap: 10px; cursor:pointer; color: var(--neon-purple);">
-                        <input type="checkbox" name="demo"> 
-                        <span>Провести показ системы экспертной группе</span>
-                    </label>
-                </div>
+                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                        
+                        <label style="display:flex; align-items: center; gap: 10px; cursor:pointer; color: var(--neon-purple);">
+                            <input type="checkbox" name="Need_Demo" value="Yes"> 
+                            <span>Провести показ системы экспертной группе</span>
+                        </label>
+                    </div>
 
-                <button type="submit" class="btn btn-demo">Отправить запрос</button>
-            </form>
-            <div id="thankYou" style="display:none; text-align:center;">Заявка принята! Мы свяжемся с вами в ближайшее время. ☄️</div>
+                    <button type="submit" class="btn btn-demo">Отправить запрос</button>
+                </form>
+            </div>
+
+            <div id="thankYou" style="display:none; text-align:center; padding: 20px 0;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">☄️</div>
+                <h3 style="margin-bottom: 10px;">Заявка принята!</h3>
+                <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.5;">Мы получили ваш запрос и свяжемся с вами в ближайшее время для предоставления доступа.</p>
+                <button onclick="closeModal('trialModal')" class="btn" style="margin-top: 25px; background: rgba(255,255,255,0.05);">Закрыть окно</button>
+            </div>
         </div>
     </div>
 
@@ -220,14 +230,17 @@
             <div style="width:100px; height:100px; border-radius:50%; background: #1a1c20; margin: 0 auto 20px; border: 2px solid var(--neon-blue); overflow: hidden; box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);">
                  <img src="avatar.jpg" alt="Анастасия Мац" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <h3 style="margin-bottom: 5px; font-size: 1.4rem;">Анастасия Мац</h3>
+            <h3 style="margin-bottom: 5px; font-size: 1.4rem;">Анастасия</h3>
             <p style="font-size:0.85rem; color:var(--neon-blue); margin-bottom:20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Business Development Manager</p>
             
-            <p style="font-size:0.9rem; color:#94a3b8; margin-bottom:30px; line-height: 1.5;">Спроектирую решение под ваши задачи <br>и отвечу на вопросы по внедрению.</p>
+            <div style="margin-bottom: 25px;">
+                <span style="font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: 0.05em;">+7 (999) 000-00-00</span>
+                <div style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">прямой номер для связи</div>
+            </div>
             
             <div style="display: flex; flex-direction: column; gap: 12px;">
-                <a href="tel:+7XXXXXXXXXX" class="btn btn-demo" style="text-decoration:none; margin: 0;">📞 Позвонить напрямую</a>
-                <a href="https://t.me/your_nick" target="_blank" class="btn" style="background: #24A1DE; border:none; text-decoration:none; margin: 0;">💬 Написать в Telegram</a>
+                <a href="tel:+79613068326" class="btn btn-demo" style="text-decoration:none; margin: 0;">📞 Позвонить сейчас</a>
+                <a href="https://t.me/anastasia_mats" target="_blank" class="btn" style="background: #24A1DE; border:none; text-decoration:none; margin: 0;">💬 Написать в Telegram</a>
             </div>
         </div>
     </div>
@@ -249,19 +262,52 @@
         }
 
         function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+            // Возвращаем форму триала в исходное состояние после закрытия модалки
+            if(id === 'trialModal') {
+                setTimeout(() => {
+                    document.getElementById('trialFormContainer').style.display = 'block';
+                    document.getElementById('thankYou').style.display = 'none';
+                    document.getElementById('trialForm').reset();
+                    const btn = document.querySelector('#trialForm button');
+                    btn.innerText = "Отправить запрос";
+                    btn.disabled = false;
+                }, 400);
+            }
+        }
 
-        // AJAX Логика для триала
+        // Логика отправки формы через Formspree без перезагрузки страницы
         const trialForm = document.getElementById('trialForm');
         trialForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = trialForm.querySelector('button');
             btn.innerText = "Отправка...";
-            
-            setTimeout(() => {
-                trialForm.style.display = 'none';
-                trialForm.nextElementSibling.style.display = 'block';
-            }, 1000);
+            btn.disabled = true;
+
+            const data = new FormData(trialForm);
+
+            try {
+                const response = await fetch(trialForm.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    document.getElementById('trialFormContainer').style.display = 'none';
+                    document.getElementById('thankYou').style.display = 'block';
+                } else {
+                    alert("Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.");
+                    btn.innerText = "Отправить запрос";
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert("Ошибка сети. Проверьте подключение к интернету.");
+                btn.innerText = "Отправить запрос";
+                btn.disabled = false;
+            }
         });
     </script>
 </body>
