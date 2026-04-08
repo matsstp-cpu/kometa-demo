@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="/favicon.png">
     
@@ -91,14 +90,12 @@
             letter-spacing: 0.05em;
         }
 
-        /* Общие стили для всех кнопок */
         .btn {
             display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 14px;
             text-decoration: none; font-weight: 600; transition: all 0.3s ease; 
             margin-bottom: 12px; color: white; border: 1px solid var(--glass-border); cursor: pointer; width: 100%;
         }
         
-        /* Индивидуальные стили и ховеры для каждой кнопки */
         .btn-demo { background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); border: none; }
         .btn-demo:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); }
 
@@ -140,7 +137,6 @@
         .modal-overlay.active { display: flex; }
         .modal-content { background: #05070a; border: 1px solid var(--glass-border); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
         
-        /* Кастомный скроллбар для форм */
         .modal-content::-webkit-scrollbar { width: 8px; }
         .modal-content::-webkit-scrollbar-track { background: transparent; }
         .modal-content::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
@@ -235,37 +231,30 @@
             <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Заполните параметры, чтобы мы подготовили схему автоматизации.</p>
             
             <form id="offerForm" action="https://formspree.io/f/xaqlprnn" method="POST">
-                
                 <div class="form-group">
                     <label>Ваше Имя *</label>
                     <input type="text" name="name" class="glass-input" required>
                 </div>
-                
                 <div class="form-group">
                     <label>Название компании *</label>
                     <input type="text" name="company" class="glass-input" required>
                 </div>
-
                 <div class="form-group">
                     <label>Рабочая почта *</label>
                     <input type="email" name="email" placeholder="email@company.com" class="glass-input" required>
                 </div>
-                
                 <div class="form-group">
                     <label>Телефон для связи</label>
                     <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" class="glass-input">
                 </div>
-
                 <div class="form-group">
                     <label>Тематика перевода / Типы документов</label>
                     <input type="text" name="doc_types" placeholder="Юриспруденция, IT, Маркетинг..." class="glass-input">
                 </div>
-
                 <div class="form-group">
                     <label>Языковые пары</label>
                     <input type="text" name="languages" placeholder="Например: RU-EN, EN-CN" class="glass-input" required>
                 </div>
-                
                 <div class="form-group">
                     <label>Объем контента в месяц</label>
                     <select name="volume" class="glass-input">
@@ -274,9 +263,8 @@
                         <option value="large">более 1 000 страниц</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label>Приоритеты автоматизации (можно несколько)</label>
+                    <label>Приоритеты автоматизации</label>
                     <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
                         <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.85rem; color:#cbd5e1;">
                             <input type="checkbox" name="priority_speed" value="Yes"> Скорость перевода
@@ -289,12 +277,10 @@
                         </label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Предложите время для демо (30 мин)</label>
                     <input type="text" name="demo_time" placeholder="Удобный день и время" class="glass-input">
                 </div>
-                
                 <button type="submit" class="btn btn-demo" style="margin-top: 10px;">Сформировать запрос</button>
             </form>
         </div>
@@ -336,10 +322,10 @@
         <div class="modal-content" style="text-align:center;">
             <button class="close-btn" onclick="closeModal('expertModal')">✕</button>
             <div style="width:100px; height:100px; border-radius:50%; background: #1a1c20; margin: 0 auto 20px; border: 2px solid var(--neon-blue); overflow: hidden;">
-                 <img src="https://i.postimg.cc/pXVV1j4v/avatar.jpg" alt="Анастасия" style="width:100%; height:100%; object-fit:cover;">
+                 <img src="avatar.JPG" alt="Анастасия" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <h3 style="margin-bottom: 5px;">Анастасия</h3>
-            <p style="font-size:0.85rem; color:var(--neon-blue); margin-bottom:20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Business Development Director</p>
+            <p style="font-size:0.85rem; color:var(--neon-blue); margin-bottom:20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Business Development Manager</p>
             <div style="margin-bottom: 25px;">
                 <span style="font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: 0.05em;">+7 (961) 306-83-26</span>
                 <div style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">прямой номер для связи</div>
@@ -359,7 +345,7 @@
             const text = document.getElementById('muteText');
             if (video.muted) {
                 video.muted = false;
-                icon.innerHTML = "🔇"; text.innerHTML = "Выключить звук";
+                icon.innerHTML = "静"; text.innerHTML = "Выключить звук";
                 container.classList.add('dialogue-active');
             } else {
                 video.muted = true;
@@ -397,7 +383,6 @@
             });
         };
 
-        // Инициализируем обработчик для всех трех форм
         handleForm('trialForm');
         handleForm('offerForm');
         handleForm('partnerForm');
