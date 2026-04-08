@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    
     <title>Проект Комета | Custom.MT</title>
-
     <style>
         :root {
             --neon-blue: #38bdf8;
@@ -60,12 +56,15 @@
             border: 1px solid rgba(56, 189, 248, 0.3);
             box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
         
         .video-sphere video { 
             position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%) translateZ(0); 
             width: 125%; height: 125%; object-fit: contain; object-position: center 20%; 
+            will-change: transform;
         }
 
         @keyframes glow-pulse {
@@ -91,27 +90,17 @@
         }
 
         .btn {
-            display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; padding: 18px; border-radius: 14px;
             text-decoration: none; font-weight: 600; transition: all 0.3s ease; 
-            margin-bottom: 12px; color: white; border: 1px solid var(--glass-border); cursor: pointer; width: 100%;
+            margin-bottom: 15px; color: white; border: 1px solid var(--glass-border); cursor: pointer; width: 100%;
         }
-        
         .btn-demo { background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); border: none; }
         .btn-demo:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); }
-
-        .btn-offer { background: rgba(56, 189, 248, 0.1); border-color: var(--neon-blue); }
-        .btn-offer:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.2); }
-
-        .btn-expert { background: transparent; border-color: var(--neon-purple); }
-        .btn-expert:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(188, 133, 255, 0.4); background: rgba(129, 140, 248, 0.1); }
-
-        .btn-partner { background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.15); color: #cbd5e1; }
-        .btn-partner:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.4); color: white; }
 
         /* --- БЛОК "ТРИ СТОЛПА" --- */
         .features-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
-            max-width: 1100px; width: 90%; padding: 40px 0 80px;
+            max-width: 1100px; width: 90%; padding-bottom: 80px;
         }
         .feature-item {
             background: var(--glass-bg); border: 1px solid var(--glass-border);
@@ -121,29 +110,16 @@
         .feature-item h4 { color: var(--neon-blue); margin: 0 0 10px 0; font-size: 1.1rem; }
         .feature-item p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin: 0; }
 
-        /* --- FORMS & MODALS --- */
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 5px; padding-left: 5px; text-transform: uppercase; }
-        
-        .glass-input, select, textarea { 
-            width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05); box-sizing: border-box;
-            border: 1px solid var(--glass-border); border-radius: 12px; color: white; 
-            outline: none; font-size: 0.9rem; font-family: inherit;
-        }
-        .glass-input:focus, select:focus, textarea:focus { border-color: var(--neon-blue); background: rgba(255, 255, 255, 0.08); }
-        select option { background: #05070a; color: white; }
-
+        /* MODALS */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: #05070a; border: 1px solid var(--glass-border); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-content { background: #05070a; border: 1px solid var(--glass-border); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; position: relative; }
         
-        .modal-content::-webkit-scrollbar { width: 8px; }
-        .modal-content::-webkit-scrollbar-track { background: transparent; }
-        .modal-content::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
-        .modal-content::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
-
         .close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; opacity: 0.5; }
         .close-btn:hover { opacity: 1; }
+
+        .glass-input { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; }
+        .glass-input:focus { border-color: var(--neon-blue); }
 
         @media (max-width: 1000px) {
             .hero-container { flex-direction: column; text-align: center; }
@@ -165,7 +141,7 @@
                     <source src="Avatar_Video.mp4" type="video/mp4">
                 </video>
             </div>
-            <div class="mute-toggle" onclick="toggleMute(document.getElementById('mascotSphere'))" style="margin-top: 15px; cursor: pointer; font-size: 0.9rem; opacity: 0.7;">
+            <div class="mute-toggle" onclick="toggleMute(document.getElementById('mascotSphere'))" style="margin-top: 15px; cursor: pointer;">
                 <span id="muteIcon">🔊</span> <span id="muteText">Включить звук</span>
             </div>
         </div>
@@ -176,11 +152,10 @@
                 <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.3rem; font-weight: 700;">Запустить трансформацию</h2>
                 
                 <button onclick="openModal('trialModal')" class="btn btn-demo">🚀 Получить тестовый доступ</button>
-                <button onclick="openModal('offerModal')" class="btn btn-offer">📊 Получить Демо и КП</button>
-                <button onclick="openModal('expertModal')" class="btn btn-expert">👥 Прямая связь: Внедрение</button>
-                <button onclick="openModal('partnerModal')" class="btn btn-partner">🤝 Стать партнером</button>
+                <button onclick="window.open('ССЫЛКА_НА_ВИДЕО', '_blank')" class="btn" style="background: rgba(255,255,255,0.05);">📽️ Видеообзор системы (60 сек)</button>
+                <button onclick="openModal('expertModal')" class="btn" style="background: transparent; border-color: var(--neon-purple);">👥 Прямая связь: Внедрение и развитие</button>
 
-                <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--glass-border); font-size: 0.75rem; color: #64748b; text-align: center; line-height: 1.4;">
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--glass-border); font-size: 0.8rem; color: #64748b; text-align: center;">
                     Используется крупнейшими LSP и Enterprise-департаментами
                 </div>
             </div>
@@ -190,150 +165,82 @@
     <div class="features-grid">
         <div class="feature-item">
             <h4>Цифровой суверенитет</h4>
-            <p>Ваши данные принадлежат только вам. Полная изоляция контура обработки: никакой передачи информации для обучения публичных моделей.</p>
+            <p>Ваши данные принадлежат только вам. Мы гарантируем полную изоляцию контура обработки: никакой передачи информации для обучения публичных моделей. Только ваш частный AI-периметр.</p>
         </div>
         <div class="feature-item">
             <h4>Нейронная оркестрация</h4>
-            <p>Хирургическая точность стиля и логики. Бесшовное слияние вашей памяти переводов (TM) и AI-интеллекта в едином потоке.</p>
+            <p>Хирургическая точность стиля и логики. Мы бесшовно объединяем вашу память переводов (TM) и мощь ИИ в единый поток, создавая эталонный результат в реальном времени.</p>
         </div>
         <div class="feature-item">
             <h4>Фундамент экспертизы</h4>
-            <p>Задаем стандарты автоматизации с 2019 года. Наш опыт — это глубокое понимание индустрии и тысячи успешных внедрений.</p>
+            <p>Влияем на индустрию технологий перевода с 2019 года, создавая стандарты автоматизации.Наш опыт — это не просто код, а глубокое понимание индустрии.</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="trialModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('trialModal')">✕</button>
+            
             <div id="trialFormContainer">
-                <h3 style="margin-bottom: 10px; color: var(--neon-blue);">Запрос доступа</h3>
-                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px;">Укажите рабочую почту для активации.</p>
+                <h3 style="margin-bottom: 10px;">Запрос доступа</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px;">Укажите рабочую почту для активации доступа.</p>
+                
                 <form id="trialForm" action="https://formspree.io/f/xaqlprnn" method="POST">
                     <input type="email" name="email" placeholder="Рабочая почта" class="glass-input" required>
-                    <div style="text-align:left; font-size: 0.85rem; margin-top: 20px;">
+                    
+                    <div style="text-align:left; font-size: 0.85rem; margin-bottom: 25px;">
+                        <p style="color: var(--neon-blue); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Выбор платформы:</p>
+                        
                         <label style="display:block; margin-bottom:12px; cursor:pointer;">
-                            <input type="checkbox" name="Product_Document_Portal" value="Yes"> <strong>Document Translation Portal</strong>
+                            <input type="checkbox" name="Product_Document_Portal" value="Yes" style="margin-right: 8px;"> 
+                            <strong>Document Translation Portal</strong> 
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Перевод документов с сохранением верстки</div>
                         </label>
+                        
                         <label style="display:block; margin-bottom:12px; cursor:pointer;">
-                            <input type="checkbox" name="Product_Custom_MT" value="Yes"> <strong>Custom.MT Console</strong>
+                            <input type="checkbox" name="Product_Custom_MT" value="Yes" style="margin-right: 8px;"> 
+                            <strong>Custom.MT Console</strong> 
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-left: 24px;">Управление LLM и кастомными моделями</div>
+                        </label>
+
+                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                        
+                        <label style="display:flex; align-items: center; gap: 10px; cursor:pointer; color: var(--neon-purple);">
+                            <input type="checkbox" name="Need_Demo" value="Yes"> 
+                            <span>Провести показ системы экспертной группе</span>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-demo" style="margin-top: 20px;">Отправить запрос</button>
+
+                    <button type="submit" class="btn btn-demo">Отправить запрос</button>
                 </form>
             </div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="offerModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('offerModal')">✕</button>
-            <h3 style="margin-bottom: 10px; color: var(--neon-blue);">Конфигуратор КП и Демо</h3>
-            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Заполните параметры, чтобы мы подготовили схему автоматизации.</p>
-            
-            <form id="offerForm" action="https://formspree.io/f/xaqlprnn" method="POST">
-                <div class="form-group">
-                    <label>Ваше Имя *</label>
-                    <input type="text" name="name" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Название компании *</label>
-                    <input type="text" name="company" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Рабочая почта *</label>
-                    <input type="email" name="email" placeholder="email@company.com" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Телефон для связи</label>
-                    <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Тематика перевода / Типы документов</label>
-                    <input type="text" name="doc_types" placeholder="Юриспруденция, IT, Маркетинг..." class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Языковые пары</label>
-                    <input type="text" name="languages" placeholder="Например: RU-EN, EN-CN" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Объем контента в месяц</label>
-                    <select name="volume" class="glass-input">
-                        <option value="small">до 200 страниц</option>
-                        <option value="medium">200 — 1 000 страниц</option>
-                        <option value="large">более 1 000 страниц</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Приоритеты автоматизации</label>
-                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
-                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.85rem; color:#cbd5e1;">
-                            <input type="checkbox" name="priority_speed" value="Yes"> Скорость перевода
-                        </label>
-                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.85rem; color:#cbd5e1;">
-                            <input type="checkbox" name="priority_cost" value="Yes"> Снижение стоимости переводов
-                        </label>
-                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.85rem; color:#cbd5e1;">
-                            <input type="checkbox" name="priority_quality" value="Yes"> Максимальное качество и точность
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Предложите время для демо (30 мин)</label>
-                    <input type="text" name="demo_time" placeholder="Удобный день и время" class="glass-input">
-                </div>
-                <button type="submit" class="btn btn-demo" style="margin-top: 10px;">Сформировать запрос</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="partnerModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('partnerModal')">✕</button>
-            <h3 style="margin-bottom: 10px; color: var(--neon-blue);">Стать партнером</h3>
-            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Оставьте свои контакты, и мы обсудим варианты сотрудничества.</p>
-            
-            <form id="partnerForm" action="https://formspree.io/f/xaqlprnn" method="POST">
-                <div class="form-group">
-                    <label>Ваше Имя *</label>
-                    <input type="text" name="name" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Название компании</label>
-                    <input type="text" name="company" class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Рабочая почта *</label>
-                    <input type="email" name="email" class="glass-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Телефон для связи</label>
-                    <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Комментарий / Формат партнерства</label>
-                    <textarea name="comment" class="glass-input" rows="3" style="resize:vertical;"></textarea>
-                </div>
-                <button type="submit" class="btn btn-demo" style="margin-top: 10px;">Отправить заявку</button>
-            </form>
+            <div id="thankYou" style="display:none; text-align:center; padding: 20px 0;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">☄️</div>
+                <h3 style="margin-bottom: 10px;">Заявка принята!</h3>
+                <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.5;">Мы получили ваш запрос и свяжемся с вами в ближайшее время для предоставления доступа.</p>
+                <button onclick="closeModal('trialModal')" class="btn" style="margin-top: 25px; background: rgba(255,255,255,0.05);">Закрыть окно</button>
+            </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="expertModal">
         <div class="modal-content" style="text-align:center;">
             <button class="close-btn" onclick="closeModal('expertModal')">✕</button>
-            <div style="width:100px; height:100px; border-radius:50%; background: #1a1c20; margin: 0 auto 20px; border: 2px solid var(--neon-blue); overflow: hidden;">
-                 <img src="avatar.JPG" alt="Анастасия" style="width:100%; height:100%; object-fit:cover;">
+            <div style="width:100px; height:100px; border-radius:50%; background: #1a1c20; margin: 0 auto 20px; border: 2px solid var(--neon-blue); overflow: hidden; box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);">
+                 <img src="https://i.postimg.cc/pXVV1j4v/avatar.jpg" alt="Анастасия" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <h3 style="margin-bottom: 5px;">Анастасия</h3>
-            <p style="font-size:0.85rem; color:var(--neon-blue); margin-bottom:20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Business Development Manager</p>
+            <h3 style="margin-bottom: 5px; font-size: 1.4rem;">Анастасия</h3>
+            <p style="font-size:0.85rem; color:var(--neon-blue); margin-bottom:20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Business Development Director</p>
+            
             <div style="margin-bottom: 25px;">
                 <span style="font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: 0.05em;">+7 (961) 306-83-26</span>
                 <div style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">прямой номер для связи</div>
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 12px;">
-                <a href="tel:+79613068326" class="btn btn-demo" style="text-decoration:none; margin: 0;">📞 Позвонить</a>
-                <a href="https://t.me/anastasia_mats" target="_blank" class="btn" style="background: #24A1DE; border:none; text-decoration:none; margin: 0;">💬 Telegram</a>
+                <a href="tel:+79613068326" class="btn btn-demo" style="text-decoration:none; margin: 0;">📞 Позвонить сейчас</a>
+                <a href="https://t.me/anastasia_mats" target="_blank" class="btn" style="background: #24A1DE; border:none; text-decoration:none; margin: 0;">💬 Написать в Telegram</a>
             </div>
         </div>
     </div>
@@ -345,7 +252,7 @@
             const text = document.getElementById('muteText');
             if (video.muted) {
                 video.muted = false;
-                icon.innerHTML = "静"; text.innerHTML = "Выключить звук";
+                icon.innerHTML = "🔇"; text.innerHTML = "Выключить звук";
                 container.classList.add('dialogue-active');
             } else {
                 video.muted = true;
@@ -355,37 +262,53 @@
         }
 
         function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        const handleForm = async (formId) => {
-            const form = document.getElementById(formId);
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = form.querySelector('button[type="submit"]');
-                const originalText = btn.innerText;
-                btn.innerText = "Отправка...";
-                btn.disabled = true;
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
-                        form.innerHTML = `<div style="text-align:center; padding: 20px;"><h3>☄️ Успешно!</h3><p>Данные переданы. Мы свяжемся с вами в ближайшее время.</p></div>`;
-                    }
-                } catch (e) {
-                    alert("Ошибка при отправке. Пожалуйста, попробуйте снова.");
+        
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+            // Возвращаем форму триала в исходное состояние после закрытия модалки
+            if(id === 'trialModal') {
+                setTimeout(() => {
+                    document.getElementById('trialFormContainer').style.display = 'block';
+                    document.getElementById('thankYou').style.display = 'none';
+                    document.getElementById('trialForm').reset();
+                    const btn = document.querySelector('#trialForm button');
+                    btn.innerText = "Отправить запрос";
                     btn.disabled = false;
-                    btn.innerText = originalText;
-                }
-            });
-        };
+                }, 400);
+            }
+        }
 
-        handleForm('trialForm');
-        handleForm('offerForm');
-        handleForm('partnerForm');
+        // Логика отправки формы через Formspree без перезагрузки страницы
+        const trialForm = document.getElementById('trialForm');
+        trialForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = trialForm.querySelector('button');
+            btn.innerText = "Отправка...";
+            btn.disabled = true;
+
+            const data = new FormData(trialForm);
+
+            try {
+                const response = await fetch(trialForm.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    document.getElementById('trialFormContainer').style.display = 'none';
+                    document.getElementById('thankYou').style.display = 'block';
+                } else {
+                    alert("Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.");
+                    btn.innerText = "Отправить запрос";
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert("Ошибка сети. Проверьте подключение к интернету.");
+                btn.innerText = "Отправить запрос";
+                btn.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
