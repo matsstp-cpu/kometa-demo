@@ -6,199 +6,200 @@
     <title>Проект Комета | AI-платформа</title>
     <style>
         :root {
-            --primary-text: #000000;
-            --secondary-text: #333333;
-            --border-green: #5ca054;
-            --border-gray: #dcdcdc;
-            --video-bg: #3b6580;
+            /* Переменные из вашего кода в репозитории */
+            --neon-blue: #3a86ff;
+            --neon-purple: #8338ec;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent-green: #10b981;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             margin: 0;
-            padding: 40px;
-            color: var(--primary-text);
-            background-color: #ffffff;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
         /* --- Шапка --- */
         .header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             position: relative;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
         .header h2 {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 2.5rem;
             margin: 0 0 20px 0;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .header p {
-            font-size: 18px;
+        .header .subtitle {
+            font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto;
+            color: var(--text-dim);
         }
 
-        /* Блок "8 лет" в правом верхнем углу */
-        .experience-badge {
+        /* Бейдж опыта */
+        .exp-badge {
             position: absolute;
-            top: 0;
+            top: -20px;
             right: 0;
-            border: 2px solid var(--border-gray);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-blue);
             padding: 20px;
-            text-align: center;
-            width: 280px;
-            background: #fff;
+            border-radius: 16px;
+            width: 260px;
+            box-shadow: 0 0 20px rgba(58, 134, 255, 0.2);
         }
 
-        .experience-badge h3 {
-            font-size: 36px;
-            margin: 0 0 10px 0;
-        }
-
-        .experience-badge p {
-            font-size: 14px;
+        .exp-badge h3 {
+            font-size: 2rem;
             margin: 0;
-            line-height: 1.4;
+            color: var(--neon-blue);
         }
 
-        /* --- Центральная часть --- */
-        .main-content {
-            display: flex;
-            justify-content: space-between;
+        .exp-badge p {
+            font-size: 0.9rem;
+            margin: 5px 0 0 0;
+            color: var(--text-dim);
+        }
+
+        /* --- Сетка 3 колонки --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 40px;
             align-items: center;
             margin-bottom: 80px;
-            gap: 40px;
         }
 
-        /* Левая колонка - Преимущества */
-        .features {
-            flex: 1;
-            max-width: 400px;
+        /* Левая колонка: Особенности */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
 
-        .feature-item {
-            margin-bottom: 25px;
-        }
-
-        .feature-item strong {
+        .feature-card strong {
             display: block;
-            font-size: 16px;
+            color: var(--neon-blue);
+            font-size: 1.1rem;
             margin-bottom: 5px;
         }
 
-        .feature-item p {
+        .feature-card p {
             margin: 0;
-            font-size: 14px;
-            line-height: 1.5;
-            color: var(--secondary-text);
+            font-size: 0.95rem;
+            color: var(--text-dim);
         }
 
-        /* Центральная колонка - Видео */
-        .video-container {
-            width: 450px;
-            height: 450px;
-            background-color: var(--video-bg);
+        /* Центр: Видео */
+        .video-sphere {
+            aspect-ratio: 1;
+            background: radial-gradient(circle, var(--neon-blue), var(--neon-purple));
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-size: 32px;
-            border: 2px solid #2a4a5e;
-            flex-shrink: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 50px rgba(131, 56, 236, 0.3);
+            border: 4px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        /* Правая колонка - Кнопки */
-        .actions {
-            flex: 1;
-            max-width: 350px;
+        .video-sphere:hover {
+            transform: scale(1.02);
+        }
+
+        /* Правая колонка: Кнопки */
+        .cta-block {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             text-align: center;
         }
 
-        .actions h4 {
-            font-size: 18px;
-            margin-bottom: 25px;
+        .cta-block h4 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
         }
 
         .btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            margin-bottom: 15px;
-            border: 2px solid var(--border-green);
-            border-radius: 12px;
-            background: white;
-            color: black;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
+            background: transparent;
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
-            background-color: #f4fbf3;
+            background: var(--accent-green);
+            color: white;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
 
-        /* --- Нижняя часть --- */
-        .bottom-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-        }
-
-        .bottom-col {
-            flex: 1;
-        }
-
-        .bottom-col h4 {
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .bottom-col p {
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0;
-            color: var(--secondary-text);
-        }
-
-        .partner-action {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
+        /* --- Нижняя секция --- */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) auto;
+            gap: 30px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
             align-items: center;
         }
 
-        .btn-partner {
-            border: 2px solid var(--border-green);
-            padding: 15px 30px;
-            border-radius: 10px;
-            background: white;
-            color: black;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .bottom-info h4 {
+            color: var(--neon-purple);
+            margin-bottom: 10px;
         }
 
-        .btn-partner:hover {
-            background-color: #f4fbf3;
+        .bottom-info p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin: 0;
+        }
+
+        .partner-btn {
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .exp-badge { position: static; width: auto; margin-bottom: 20px; }
+            .bottom-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -209,68 +210,63 @@
     <header class="header">
         <h1>«КОМЕТА» 🚀</h1>
         <h2>AI-платформа для автоматического перевода и локализации</h2>
-        <p>Раскрывайте весь потенциал нейронных моделей в задачах перевода документов, контента и интерфейсов.</p>
+        <p class="subtitle">Раскрывайте весь потенциал нейронных моделей в задачах перевода документов, контента и интерфейсов. </p>
         
-        <div class="experience-badge">
-            <h3>8 лет</h3>
-            <p>Международная экспертиза в AI-переводе и локализации с 2018 г.</p>
+        <div class="exp-badge">
+            <h3>8 лет </h3>
+            <p>Международная экспертиза в AI-переводе и локализации с 2018 г. </p>
         </div>
     </header>
 
-    <main class="main-content">
-        
-        <div class="features">
-            <div class="feature-item">
+    <div class="main-grid">
+        <div class="feature-list">
+            <div class="feature-card">
                 <strong>🤝 Доверие:</strong>
-                <p>Более 200 успешных кейсов внедрения<br>Yandex, Positive Technologies и 10+ крупных российских LSP</p>
+                <p>Более 200 успешных кейсов внедрения. Yandex, Positive Technologies и 10+ крупных LSP. </p>
             </div>
-            <div class="feature-item">
+            <div class="feature-card">
                 <strong>✅ Качество:</strong>
-                <p>Более 30 интегрированных моделей.<br>В 9% случаев перевод лучше ручного (по данным LQA-тестов Custom.MT)</p>
+                <p>Более 30 интегрированных моделей. В 9% случаев перевод лучше ручного. </p>
             </div>
-            <div class="feature-item">
+            <div class="feature-card">
                 <strong>⚙️ Сценарии:</strong>
-                <p>Для перевода документации, инструкций, баз знаний, интерфейсов и другого контента с высокими требованиями к качеству и безопасности</p>
+                <p>Для перевода документации, инструкций, баз знаний и интерфейсов. </p>
             </div>
-            <div class="feature-item">
+            <div class="feature-card">
                 <strong>🔒 Безопасность:</strong>
-                <p>Крипто шифрование данных. Работа в закрытом контуре клиента.<br>Обработка чувствительных данных без риска.</p>
+                <p>Крипто-шифрование данных. Работа в закрытом контуре клиента. </p>
             </div>
         </div>
 
-        <div class="video-container">
-            ВИДЕО
+        <div class="video-sphere">
+            СМОТРЕТЬ ВИДЕО
         </div>
 
-        <div class="actions">
+        <div class="cta-block">
             <h4>Работа «Кометы» на вашем контенте и в вашем стеке</h4>
             <button class="btn">Тестовый доступ</button>
             <button class="btn">Забронировать демо</button>
             <button class="btn">Контакты эксперта</button>
         </div>
-        
-    </main>
+    </div>
 
-    <section class="bottom-section">
-        <div class="bottom-col">
+    <div class="bottom-grid">
+        <div class="bottom-info">
             <h4>Тонкая настройка AI-воркфлоу</h4>
-            <p>Комета позволяет настраивать логику работы нейронных моделей под тип контента, терминологию, стиль, правила и требования бизнеса, чтобы получать более точный и управляемый результат.</p>
+            <p>Настройка нейросетей под тип контента, терминологию и требования бизнеса для управляемого результата. </p>
         </div>
-        
-        <div class="bottom-col">
-            <h4>Максимум качества от нейромоделей</h4>
-            <p>Память переводов, терминология, правила и AI работают как единый контур, чтобы повышать качество автоматического перевода и раскрывать потенциал моделей на реальных enterprise-задачах.</p>
+        <div class="bottom-info">
+            <h4>Максимум качества</h4>
+            <p>Память переводов и терминология работают как единый контур для enterprise-задач. </p>
         </div>
-        
-        <div class="bottom-col">
-            <h4>Встраивается в ваш текущий стек</h4>
-            <p>Комета не требует замены существующих систем: платформа интегрируется с CAT, CMS, документооборотом и кастомными решениями через REST API и становится AI-слоем в уже работающем процессе.</p>
+        <div class="bottom-info">
+            <h4>Встраивание в стек</h4>
+            <p>Интеграция с CAT, CMS и документооборотом через REST API без замены ваших систем. </p>
         </div>
-        
-        <div class="partner-action">
-            <button class="btn-partner">Стать партнером</button>
+        <div>
+            <button class="btn partner-btn">Стать партнером </button>
         </div>
-    </section>
+    </div>
 
 </div>
 
