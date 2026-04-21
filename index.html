@@ -9,6 +9,8 @@
             --neon-blue: #38bdf8; 
             --neon-purple: #818cf8; 
             --neon-active: #bc85ff; 
+            --gold: #ffcc33;
+            --gold-glow: rgba(255, 204, 51, 0.5);
             --bg-dark: #030406; 
             --glass-bg: rgba(255, 255, 255, 0.02); 
             --glass-border: rgba(255, 255, 255, 0.08); 
@@ -54,33 +56,37 @@
         .gradient-text { background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(56,189,248,0.3)); }
         .tagline { font-size: 1.2rem; color: #94a3b8; max-width: 700px; margin: 20px auto; line-height: 1.6; font-weight: 300; }
 
-        /* --- СЕТКА 3 КОЛОНКИ --- */
+        /* --- ГЛАВНЫЙ ЭКРАН (ОБНОВЛЕНО) --- */
         .hero-grid {
-            display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; align-items: center; margin-bottom: 80px;
+            display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px;
         }
 
-        /* Левая колонка: Особенности */
         .features-side { display: flex; flex-direction: column; gap: 25px; }
         .feature-card-mini strong { display: block; color: var(--neon-blue); font-size: 1rem; margin-bottom: 5px; }
         .feature-card-mini p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
 
-        /* Центр: Видео Сфера */
-        .video-side { display: flex; flex-direction: column; align-items: center; }
+        .video-side { display: flex; flex-direction: column; align-items: center; position: relative; }
+        
+        /* Твои настройки маскота */
         .video-sphere {  
-            width: 400px; height: 400px; position: relative; border-radius: 50%;  
-            overflow: hidden; background-color: #000;  
+            width: 420px; height: 420px; position: relative; border-radius: 50%;  
+            overflow: hidden; background-color: #ffffff;  
             border: 1px solid rgba(56, 189, 248, 0.3); 
             box-shadow: 0 0 40px rgba(56, 189, 248, 0.2); 
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
         } 
-        .video-sphere video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 125%; height: 125%; object-fit: contain; }
+        .video-sphere video { 
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 125%; height: 125%; object-fit: contain; object-position: center 20%; 
+        }
+
         @keyframes glow-pulse { 
             0%, 100% { box-shadow: 0 0 30px rgba(188, 133, 255, 0.4); border-color: rgba(188, 133, 255, 0.5); } 
             50% { box-shadow: 0 0 70px rgba(188, 133, 255, 0.8); border-color: rgba(188, 133, 255, 1); } 
         } 
         .video-sphere.dialogue-active { animation: glow-pulse 2s ease-in-out infinite; }
 
-        /* Правая колонка: Кнопки */
         .actions-side { 
             background: var(--glass-bg); padding: 35px; border-radius: 30px; backdrop-filter: blur(40px); 
             border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); 
@@ -100,7 +106,7 @@
         .btn-expert { background: transparent; border-color: var(--neon-purple); } 
         .btn-expert:hover { background: rgba(129, 140, 248, 0.1); transform: translateY(-2px); } 
 
-        /* --- НИЖНИЙ БЛОК (ТРИ СТОЛПА) --- */
+        /* --- НИЖНИЙ БЛОК --- */
         .bottom-grid { 
             display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 25px; 
             padding: 40px 0; border-top: 1px solid var(--glass-border);
@@ -108,20 +114,39 @@
         .bottom-item { background: var(--glass-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--glass-border); } 
         .bottom-item h4 { color: var(--neon-blue); margin: 0 0 10px 0; font-size: 1rem; } 
         .bottom-item p { color: #94a3b8; font-size: 0.8rem; line-height: 1.5; margin: 0; } 
+        
+        /* ЗОЛОТАЯ КНОПКА ПАРТНЕРСТВА */
         .btn-partner { 
-            align-self: center; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); 
-            padding: 15px 25px; border-radius: 12px; color: #f8fafc; font-weight: 600; cursor: pointer; transition: 0.3s;
+            align-self: center; 
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fcf6ba, #aa771c);
+            background-size: 200% auto;
+            border: none; 
+            padding: 15px 30px; border-radius: 12px; 
+            color: #000; font-weight: 800; cursor: pointer; 
+            transition: 0.5s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px var(--gold-glow);
+            animation: gold-shine 3s linear infinite;
         }
-        .btn-partner:hover { border-color: white; background: rgba(255,255,255,0.05); }
+        @keyframes gold-shine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .btn-partner:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 40px var(--gold-glow);
+        }
 
-        /* --- MODALS & FORMS (как в старом коде) --- */
+        /* --- MODALS --- */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; } 
         .modal-overlay.active { display: flex; } 
         .modal-content { background: #05070a; border: 1px solid var(--glass-border); padding: 40px; border-radius: 30px; max-width: 500px; width: 100%; position: relative; } 
         .close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; opacity: 0.5; } 
         .glass-input, select, textarea { width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; margin-bottom: 15px; font-family: inherit; } 
 
-        @media (max-width: 1000px) { .hero-grid, .bottom-grid { grid-template-columns: 1fr; } .experience-seal { position: static; margin: 0 auto 20px; width: auto; } } 
+        @media (max-width: 1000px) { .hero-grid, .bottom-grid { grid-template-columns: 1fr; } .experience-seal { position: static; margin: 0 auto 20px; width: auto; } .btn-partner { width: 100%; } } 
     </style> 
 </head> 
 <body> 
@@ -208,6 +233,33 @@
     </div>
 </div>
 
+<div class="modal-overlay" id="offerModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('offerModal')">✕</button>
+        <h3 style="color:var(--neon-blue)">Забронировать демо</h3>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">Покажем, как Комета работает на ваших файлах.</p>
+        <form action="https://formspree.io/f/xaqlprnn" method="POST">
+            <input type="text" name="name" placeholder="Ваше имя" class="glass-input" required>
+            <input type="email" name="email" placeholder="Рабочая почта" class="glass-input" required>
+            <textarea name="comment" placeholder="Какие задачи нужно решить?" class="glass-input" rows="3"></textarea>
+            <button type="submit" class="btn btn-demo">Записаться на встречу</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="partnerModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('partnerModal')">✕</button>
+        <h3 style="color:var(--gold)">Партнерская программа</h3>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">Оставьте заявку, и мы обсудим условия сотрудничества.</p>
+        <form action="https://formspree.io/f/xaqlprnn" method="POST">
+            <input type="text" name="company" placeholder="Название компании" class="glass-input" required>
+            <input type="email" name="email" placeholder="Контактный email" class="glass-input" required>
+            <button type="submit" class="btn-partner" style="width:100%; border-radius:12px;">Отправить заявку</button>
+        </form>
+    </div>
+</div>
+
 <div class="modal-overlay" id="expertModal"> 
     <div class="modal-content" style="text-align:center;"> 
         <button class="close-btn" onclick="closeModal('expertModal')">✕</button> 
@@ -242,13 +294,12 @@
         } 
     } 
 
-    function openModal(id) { document.getElementById(id).classList.add('active'); } 
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); } 
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; } 
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; } 
 
-    // Закрытие по клику на фон
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
-            event.target.classList.remove('active');
+            event.target.style.display = 'none';
         }
     }
 </script> 
